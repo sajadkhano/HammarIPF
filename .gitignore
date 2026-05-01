@@ -1,0 +1,6 @@
+cloudflared.exe
+cloudflared.log
+*.zip
+*.log
+__pycache__/
+.vscode/

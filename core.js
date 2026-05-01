@@ -1,4 +1,42 @@
 "use strict";
+// ===== i18n SYSTEM =====
+var currentLang='en';
+var i18n={
+  en:{overview_title:'Plant Overview — Process Flow Schematic',svg_wellhead:'WELLHEAD',svg_manifold:'MANIFOLD',svg_hpsep:'HP SEPARATOR',svg_lpsep:'LP SEPARATOR',svg_gas:'GAS TREATMENT',svg_gasexp:'GAS EXPORT',svg_oil:'OIL TREATMENT',svg_water:'WATER TREATMENT',svg_storage:'STORAGE',svg_export:'EXPORT',svg_chem:'CHEMICAL INJ.',svg_leg_oil:'Oil Flow',svg_leg_gas:'Gas Flow',svg_leg_water:'Water Flow',svg_leg_chem:'Chemical Inj.',
+    nav_overview:'🏭 Overview',nav_separator:'⚙️ Separator Calc',nav_trains:'🚂 Production Trains',nav_gas:'🔥 Gas Treatment',nav_oil:'🛢️ Oil Treatment',nav_water:'💧 Water Treatment',nav_chemical:'🧪 Chemical Injection',nav_storage:'🏗️ Storage & Export',nav_charts:'📈 Charts',nav_equations:'📐 Equations',nav_diagram:'🔍 Process Diagram',nav_control:'🎮 Control Panel',
+    btn_lang:'العربية',success_msg:'✅ All systems are stable. Mass balance and chemical injection rates are automatically updated based on live input.',
+    status_online:'ONLINE',alarms_title:'System Alarms',pid_title:'PID Level Control — HP Separator',pid_valve:'Liquid Outflow Valve (%)',pid_retention:'Retention Time (min)',pid_auto:'Auto Target 50%',
+    sim_on:'⏹️ Live: ON',sim_off:'▶️ Live: OFF'},
+  ar:{overview_title:'نظرة عامة على المحطة — مخطط العمليات',svg_wellhead:'رأس البئر',svg_manifold:'المانيفولد',svg_hpsep:'عازل ض. عالي',svg_lpsep:'عازل ض. واطئ',svg_gas:'معالجة الغاز',svg_gasexp:'تصدير الغاز',svg_oil:'معالجة النفط',svg_water:'معالجة الماء',svg_storage:'الخزانات',svg_export:'التصدير',svg_chem:'حقن كيمياوي',svg_leg_oil:'تدفق النفط',svg_leg_gas:'تدفق الغاز',svg_leg_water:'تدفق الماء',svg_leg_chem:'حقن كيمياوي',
+    nav_overview:'🏭 نظرة عامة',nav_separator:'⚙️ حاسبة العازل',nav_trains:'🚂 قطارات الإنتاج',nav_gas:'🔥 معالجة الغاز',nav_oil:'🛢️ معالجة النفط',nav_water:'💧 معالجة الماء',nav_chemical:'🧪 الحقن الكيمياوي',nav_storage:'🏗️ الخزن والتصدير',nav_charts:'📈 الرسوم البيانية',nav_equations:'📐 المعادلات',nav_diagram:'🔍 مخطط تفصيلي',nav_control:'🎮 لوحة السيطرة',
+    btn_lang:'English',success_msg:'✅ جميع الأنظمة مستقرة. يتم تحديث موازنة الكتلة ومعدلات الحقن الكيمياوي تلقائياً بناءً على المدخلات.',
+    status_online:'متصل الآن',alarms_title:'إنذارات النظام',pid_title:'التحكم بالمستوى PID - عازلة الضغط العالي',pid_valve:'صمام خروج السائل (%)',pid_retention:'وقت البقاء (دقيقة)',pid_auto:'ضبط تلقائي 50%',
+    sim_on:'⏹️ بث مباشر: يعمل',sim_off:'▶️ بث مباشر: متوقف'}
+};
+function applyLang(){
+  var t=i18n[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(t[key])el.textContent=t[key];
+  });
+  // Sidebar buttons
+  var tabs=['overview','separator','trains','gas','oil','water','chemical','storage','charts','equations','diagram','control'];
+  document.querySelectorAll('.nav-btn').forEach(function(b,i){
+    var key='nav_'+tabs[i];
+    if(t[key])b.textContent=t[key];
+  });
+  // Lang button
+  $('langBtn').textContent=t.btn_lang;
+  // Success banner
+  document.querySelectorAll('.success-banner').forEach(function(el){el.textContent=t.success_msg});
+  // RTL
+  if(currentLang==='ar'){document.documentElement.setAttribute('dir','rtl');document.documentElement.setAttribute('lang','ar')}
+  else{document.documentElement.setAttribute('dir','ltr');document.documentElement.setAttribute('lang','en')}
+}
+function toggleLang(){
+  currentLang=currentLang==='en'?'ar':'en';
+  applyLang();
+}
 var trainData=[
 {id:"TRAIN 1",status:"ON",inlet:31731.52,oil:22513.10,water:9218.42,gas:64.8,sepVol:60},
 {id:"TRAIN 2",status:"ON",inlet:46508.43,oil:37796.91,water:8711.52,gas:36.1,sepVol:60},
@@ -66,15 +104,9 @@ function renderTrainResults(){
 function updateOverview(tI,tO,tG){
   var tW=trainData.reduce(function(s,d){return s+d.water},0);
   var dem=((tI*158.98)*(15/1e6))/24;
-  if($("fv-well"))$("fv-well").textContent=fmt(tI)+" bpd";
-  if($("fv-manifold"))$("fv-manifold").textContent=fmt(tI)+" bpd";
-  if($("fv-hpsep"))$("fv-hpsep").textContent=fmt(tI)+" bpd";
-  if($("fv-lpsep"))$("fv-lpsep").textContent=fmt(tO)+" bpd";
-  if($("fv-gas"))$("fv-gas").textContent=fmt(tG)+" MMSCFD";
-  if($("fv-oil"))$("fv-oil").textContent=fmt(tO)+" bpd";
-  if($("fv-water"))$("fv-water").textContent=fmt(tW)+" bpd";
-  if($("fv-storage"))$("fv-storage").textContent=fmt(tO*5.615)+" bbl";
-  if($("fv-export"))$("fv-export").textContent=fmt(tO)+" bpd";
+  // Update SVG schematic values
+  var ids={well:fmt(tI)+' bpd',manifold:fmt(tI)+' bpd',hpsep:fmt(tI)+' bpd',lpsep:fmt(tO)+' bpd',gas:fmt(tG)+' MMSCFD',oil:fmt(tO)+' bpd',water:fmt(tW)+' bpd',storage:fmt(tO*5.615)+' bbl',export:fmt(tO)+' bpd'};
+  for(var k in ids){var el=$('sv-'+k);if(el)el.textContent=ids[k]}
   $("overviewKPI").innerHTML=kpi("Total Inlet",fmt(tI),"bpd")+kpi("Total Oil",fmt(tO),"bpd")+kpi("Total Gas",fmt(tG),"MMSCFD")+kpi("Demulsifier",fmt(dem),"L/hr");
 }
 
@@ -273,4 +305,5 @@ document.addEventListener("DOMContentLoaded",function(){
   calcChemical();
   calcStorage();
   initAnalyticsCharts();
+  applyLang();
 });

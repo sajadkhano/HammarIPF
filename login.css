@@ -1,0 +1,85 @@
+/* ===== LOGIN SCREEN ===== */
+@keyframes loginFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes loginPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+@keyframes loginGlow{0%{box-shadow:0 0 30px rgba(0,240,255,.15),0 0 60px rgba(0,230,118,.08)}50%{box-shadow:0 0 50px rgba(0,240,255,.3),0 0 90px rgba(124,77,255,.15)}100%{box-shadow:0 0 30px rgba(0,240,255,.15),0 0 60px rgba(0,230,118,.08)}}
+@keyframes loginShake{0%,100%{transform:translateX(0)}15%{transform:translateX(-12px)}30%{transform:translateX(10px)}45%{transform:translateX(-8px)}60%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+@keyframes loginSuccess{0%{border-color:rgba(0,230,118,.3)}50%{border-color:#00e676;box-shadow:0 0 60px rgba(0,230,118,.4)}100%{border-color:rgba(0,230,118,.3)}}
+@keyframes ringRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes ringRotateR{from{transform:rotate(360deg)}to{transform:rotate(0deg)}}
+@keyframes colorShift{0%{border-color:#00f0ff;filter:hue-rotate(0deg)}25%{border-color:#00e676;filter:hue-rotate(60deg)}50%{border-color:#7c4dff;filter:hue-rotate(120deg)}75%{border-color:#ff6d00;filter:hue-rotate(180deg)}100%{border-color:#00f0ff;filter:hue-rotate(360deg)}}
+@keyframes dotPop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.3)}100%{transform:scale(1);opacity:1}}
+@keyframes fadeOutLogin{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.05)}}
+
+#loginScreen{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10000}
+#loginScreen.fadeout{animation:fadeOutLogin .6s ease forwards}
+
+.login-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#060912 0%,#0a1428 50%,#060912 100%);
+  position:relative;overflow:hidden}
+
+.login-particles{position:absolute;inset:0;pointer-events:none}
+.login-particle{position:absolute;border-radius:50%;opacity:0;animation:loginPulse var(--dur,4s) ease-in-out infinite;animation-delay:var(--delay,0s)}
+
+.login-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.login-ring{position:absolute;border-radius:50%;border:1px solid transparent}
+.ring1{width:600px;height:600px;border-color:rgba(0,240,255,.05);animation:ringRotate 30s linear infinite}
+.ring2{width:450px;height:450px;border-color:rgba(0,230,118,.07);border-style:dashed;animation:ringRotateR 25s linear infinite}
+
+/* Card */
+.login-card{position:relative;z-index:10;background:rgba(10,15,28,.8);backdrop-filter:blur(40px);
+  border:1px solid rgba(0,240,255,.2);border-radius:32px;display:flex;width:880px;max-width:95vw;min-height:500px;
+  box-shadow:0 25px 80px rgba(0,0,0,0.5);
+  animation:loginGlow 5s ease-in-out infinite;overflow:hidden;
+  transition:all .5s}
+.login-card.shake{animation:loginShake .5s ease}
+.login-card.success{animation:loginSuccess .8s ease}
+
+.login-left{flex:1.2;padding:50px;display:flex;flex-direction:column;justify-content:center;
+  background:linear-gradient(180deg, rgba(0,240,255,0.03) 0%, transparent 100%);
+  border-right:1px solid rgba(255,255,255,0.05);position:relative}
+
+.login-right{flex:1;padding:50px;display:flex;flex-direction:column;justify-content:center;background:rgba(0,0,0,0.2)}
+
+/* Credits Section */
+.login-credits-wrap{text-align:center;font-family:'Inter',sans-serif}
+.university-logo{width:80px;height:80px;margin-bottom:24px;filter:drop-shadow(0 0 15px rgba(0,240,255,0.4))}
+.credits-title{color:#00f0ff;font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:15px;opacity:0.8}
+.credits-text{color:#e0f0ff;font-size:16px;line-height:1.8;margin-bottom:20px;font-weight:400}
+.credits-text strong{display:block;margin-top:15px;color:#00e676;font-size:18px;text-shadow:0 0 10px rgba(0,230,118,0.3)}
+
+/* Logo Section */
+.login-logo-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:30px}
+.main-logo{width:100px;height:100px;object-fit:contain;margin-bottom:15px;filter:drop-shadow(0 0 20px rgba(0,240,255,0.3))}
+.login-title{font-family:'Inter',sans-serif;font-size:32px;font-weight:900;text-align:center;
+  background:linear-gradient(135deg,#00f0ff,#00e676);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:5px}
+.login-subtitle{text-align:center;font-size:11px;color:#5a7aaa;letter-spacing:.3em;text-transform:uppercase;font-weight:600}
+
+/* Form */
+.login-field{margin-bottom:20px}
+.login-label{display:block;font-size:10px;color:#5a7aaa;text-transform:uppercase;letter-spacing:.2em;font-weight:700;margin-bottom:10px}
+.login-input-wrap{display:flex;align-items:center;background:rgba(0,0,0,0.4);border:1px solid rgba(0,240,255,0.2);border-radius:14px;transition:all .3s}
+.login-input-wrap:focus-within{border-color:#00f0ff;box-shadow:0 0 20px rgba(0,240,255,0.15);background:rgba(0,0,0,0.6)}
+.login-lock-icon{padding-left:15px;font-size:18px;opacity:.7}
+.login-input{flex:1;background:none;border:none;outline:none;color:#fff;font-family:'JetBrains Mono',monospace;font-size:18px;padding:15px;letter-spacing:.2em}
+.login-input::placeholder{color:rgba(255,255,255,0.15);letter-spacing:.1em}
+
+.login-btn{width:100%;margin-top:10px;padding:16px;background:linear-gradient(135deg,#00f0ff,#00e676);
+  border:none;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;transition:all .3s}
+.login-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,240,255,0.3);filter:brightness(1.1)}
+.login-btn-text{color:#060912;font-weight:800;letter-spacing:0.1em;font-size:14px}
+.login-btn-arrow{color:#060912;font-size:20px}
+
+.login-error{text-align:center;font-size:12px;font-weight:600;margin-top:15px;height:20px;color:#ff5252;opacity:0}
+.login-error.show{opacity:1}
+.login-error.ok{color:#00e676}
+
+/* Responsive */
+@media(max-width:900px){
+  .login-card{flex-direction:column;width:95vw;min-height:auto}
+  .login-left{padding:30px;border-right:none;border-bottom:1px solid rgba(255,255,255,0.05)}
+  .login-right{padding:30px}
+  .login-title{font-size:24px}
+}
+
