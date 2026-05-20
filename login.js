@@ -15,7 +15,7 @@
           <!-- Left side: Credits -->
           <div class="login-left">
             <div class="login-credits-wrap">
-              <img src="al-maaqal-logo.png" class="university-logo" alt="Al-Maaqal University">
+              <img src="شعار الجامعة.jpg" class="university-logo" alt="Al-Maaqal University" style="animation: loginFloat 3s ease-in-out infinite; box-shadow: 0 0 30px var(--accent-glow); border: 2px solid rgba(0,240,255,0.3);">
               <div class="credits-title">Academic Project</div>
 
               <div class="credits-text">
@@ -28,7 +28,23 @@
           <!-- Right side: Form -->
           <div class="login-right">
             <div class="login-logo-wrap">
-              <img src="al-maaqal-logo.png" class="main-logo" alt="University Logo">
+              <!-- EMBEDDED HIGH-FIDELITY SVG LOGO -->
+              <div class="main-logo station-logo-crop">
+                <svg viewBox="0 0 100 100" style="width:100%;height:100%;">
+                  <defs>
+                    <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#00f0ff" />
+                      <stop offset="100%" stop-color="#00e676" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M50,5 L90,25 L90,75 L50,95 L10,75 L10,25 Z" fill="none" stroke="url(#shieldGrad)" stroke-width="3" />
+                  <rect x="40" y="45" width="8" height="35" fill="#00f0ff" opacity="0.8" />
+                  <rect x="52" y="35" width="8" height="45" fill="#00e676" opacity="0.8" />
+                  <path d="M30,40 Q50,20 70,40" fill="none" stroke="#ffc107" stroke-width="2" />
+                  <circle cx="50" cy="55" r="10" fill="#1a2030" stroke="#00f0ff" stroke-width="1" />
+                  <path d="M50,50 Q55,55 50,62 Q45,55 50,50" fill="#ffab40" />
+                </svg>
+              </div>
               <h2 class="login-title">HAMMAR IPF</h2>
               <p class="login-subtitle">Smart SCADA Digital Twin</p>
             </div>

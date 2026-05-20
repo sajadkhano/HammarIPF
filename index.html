@@ -26,16 +26,48 @@
 <!-- HEADER -->
 <header class="header">
   <div class="header-left">
-    <img src="al-maaqal-logo.png" style="width:36px;height:36px;object-fit:contain;filter:drop-shadow(0 0 5px rgba(0,240,255,0.2));">
+    <img src="شعار الجامعة.jpg" style="width:40px;height:40px;object-fit:contain;filter:drop-shadow(0 0 5px rgba(0,240,255,0.2));">
 
     <div>
-      <h1 class="header-title">🎛️ Hammar IPF - Smart SCADA</h1>
+      <div class="logo-stack">
+        <div class="station-logo-crop" style="width:45px;height:45px;">
+          <svg viewBox="0 0 100 100" style="width:100%;height:100%;">
+            <defs>
+              <linearGradient id="shieldGrad2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#00f0ff" />
+                <stop offset="100%" stop-color="#00e676" />
+              </linearGradient>
+            </defs>
+            <path d="M50,5 L90,25 L90,75 L50,95 L10,75 L10,25 Z" fill="none" stroke="url(#shieldGrad2)" stroke-width="3" />
+            <rect x="40" y="45" width="8" height="35" fill="#00f0ff" opacity="0.8" />
+            <rect x="52" y="35" width="8" height="45" fill="#00e676" opacity="0.8" />
+            <path d="M30,40 Q50,20 70,40" fill="none" stroke="#ffc107" stroke-width="2" />
+            <circle cx="50" cy="55" r="10" fill="#1a2030" stroke="#00f0ff" stroke-width="1" />
+            <path d="M50,50 Q55,55 50,62 Q45,55 50,50" fill="#ffab40" />
+          </svg>
+        </div>
+        <h1 class="header-title">🎛️ Hammar IPF - Smart SCADA</h1>
+      </div>
       <p class="header-sub">Advanced GOSP Simulation &amp; Engineering Calculator — API/ASTM Standards</p>
     </div>
   </div>
   <div class="header-right">
     <button class="icon-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice Control">🎤</button>
     <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle Theme">🌓</button>
+    
+    <!-- ALARMS DROPDOWN -->
+    <div class="alarm-dropdown-container">
+      <button class="icon-btn" id="alarmToggle" onclick="toggleAlarms()" title="System Alarms">
+        🚨 <span id="alarmCount" class="badge-mini">0</span>
+      </button>
+      <div class="alarm-panel minimized" id="alarmPanel">
+        <div class="alarm-head" onclick="toggleAlarms()">
+          🚨 <span data-i18n="alarms_title">System Alarms</span>
+        </div>
+        <div class="alarm-list" id="alarmList"></div>
+      </div>
+    </div>
+
     <button class="sim-btn" id="simBtn" onclick="toggleSimulation()" data-i18n="sim_off">▶️ Live: OFF</button>
     <button class="lang-btn" id="langBtn" onclick="toggleLang()">العربية</button>
     <div class="pulse-dot"></div><span class="sys-on" data-i18n="status_online">ONLINE</span>
@@ -106,6 +138,36 @@
     <div class="tab-panel active" id="tab-overview">
       <div class="panel-nav"><button class="nav-arrow" onclick="histBack()" title="Back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><button class="nav-arrow" onclick="histFwd()" title="Forward"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button><button class="save-btn" onclick="exportPDF()" style="margin-right:8px;background:#e91e63;color:#fff;border:none;">📄 Daily Report</button><button class="save-btn" onclick="savePanel('tab-overview')">💾 Save</button></div>
       <div class="panel-title" data-i18n="overview_title">Plant Overview — Process Flow Schematic</div>
+      
+      <!-- Live System Summary Panel -->
+      <div class="calc-card glass" style="margin-bottom:20px; border-left: 4px solid var(--gas-light);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+          <h3 style="font-size:14px; color:var(--text); font-weight:800; text-transform:uppercase; letter-spacing:1px;">🛰️ Live System Summary</h3>
+          <div style="display:flex; gap:10px;">
+            <span class="sys-on" style="background:var(--gas-bg); padding:4px 10px; border-radius:4px; font-size:10px;">GOSP-1 ACTIVE</span>
+            <span class="sys-on" style="background:var(--water-bg); color:var(--water); padding:4px 10px; border-radius:4px; font-size:10px;">TUNNEL SECURED</span>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:15px;">
+          <div style="background:rgba(0,0,0,0.02); padding:10px; border-radius:8px; border:1px solid var(--card-border);">
+            <div style="font-size:10px; color:var(--text3); text-transform:uppercase;">Station Throughput</div>
+            <div style="font-family:var(--mono); font-size:18px; font-weight:700; color:var(--oil-light);" id="sum-inlet">135,420 <span style="font-size:10px;">bpd</span></div>
+          </div>
+          <div style="background:rgba(0,0,0,0.02); padding:10px; border-radius:8px; border:1px solid var(--card-border);">
+            <div style="font-size:10px; color:var(--text3); text-transform:uppercase;">Export Quality (BS&W)</div>
+            <div style="font-family:var(--mono); font-size:18px; font-weight:700; color:var(--gas-light);">0.15 <span style="font-size:10px;">%</span></div>
+          </div>
+          <div style="background:rgba(0,0,0,0.02); padding:10px; border-radius:8px; border:1px solid var(--card-border);">
+            <div style="font-size:10px; color:var(--text3); text-transform:uppercase;">Gas Energy Output</div>
+            <div style="font-family:var(--mono); font-size:18px; font-weight:700; color:var(--water-light);">12.4 <span style="font-size:10px;">MMBTU/D</span></div>
+          </div>
+          <div style="background:rgba(0,0,0,0.02); padding:10px; border-radius:8px; border:1px solid var(--card-border);">
+            <div style="font-size:10px; color:var(--text3); text-transform:uppercase;">System Health</div>
+            <div style="font-family:var(--mono); font-size:18px; font-weight:700; color:var(--gas);">STABLE</div>
+          </div>
+        </div>
+      </div>
+
       <!-- SVG Process Schematic -->
       <div class="schematic-wrap">
         <svg id="plantSVG" viewBox="0 0 1100 520" xmlns="http://www.w3.org/2000/svg">
@@ -455,13 +517,76 @@
       <div class="schematic-wrap" id="detailDiagramWrap"></div>
       <div id="equipPopup" class="svg-popup"></div>
 
-      <!-- 3D Digital Twin Section -->
-      <div class="calc-card glass" style="margin-top:20px;padding:0;overflow:hidden;height:500px;background:#000;display:flex;align-items:center;justify-content:center;position:relative;border:1px solid rgba(0,240,255,0.3);">
-        <div style="position:absolute;top:15px;left:15px;background:rgba(0,230,118,0.2);padding:6px 12px;border-radius:6px;font-size:11px;color:#00e676;border:1px solid #00e676;z-index:2;font-weight:700;letter-spacing:1px;">HIGH-FIDELITY 3D DIGITAL TWIN</div>
-        <img src="hammar_3d_station.png" style="width:100%;height:100%;object-fit:cover;opacity:0.8;filter:contrast(1.1) brightness(0.9);">
-        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);padding:30px;color:#fff;">
-          <h3 style="color:#00f0ff;margin:0 0 5px;font-size:18px;">Hammar GOSP - Central Processing Facility</h3>
-          <p style="color:#5a7aaa;font-size:13px;margin:0;">Real-time volumetric simulation and structural monitoring active.</p>
+      <!-- Detailed Process Schematic (Blueprint Style) -->
+      <div class="calc-card glass" style="margin-top:20px;padding:20px;overflow:hidden;height:auto;background:#061021;position:relative;border:1px solid rgba(0,240,255,0.2);">
+        <div style="position:absolute;top:15px;left:15px;background:rgba(0,180,255,0.1);padding:6px 12px;border-radius:6px;font-size:11px;color:#00f0ff;border:1px solid rgba(0,240,255,0.3);z-index:2;font-weight:700;letter-spacing:1px;">DETAILED PROCESS SCHEMATIC — ENGINEERING VIEW</div>
+        
+        <div class="blueprint-wrap">
+          <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background Grid -->
+            <defs>
+              <pattern id="blueGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,240,255,0.05)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="1000" height="500" fill="url(#blueGrid)" />
+
+            <!-- FLOW LINES -->
+            <g stroke="rgba(0,240,255,0.3)" stroke-width="2" fill="none">
+              <path d="M 50,250 L 150,250" /> <!-- Wellhead to HP -->
+              <path d="M 300,250 L 400,250" /> <!-- HP to LP -->
+              <path d="M 530,250 L 630,250" /> <!-- LP to Treater -->
+              <path d="M 750,250 L 850,250" /> <!-- Treater to Storage -->
+              <path d="M 225,210 V 100 H 350" /> <!-- HP Gas out -->
+              <path d="M 465,290 V 400 H 550" /> <!-- LP Water out -->
+            </g>
+
+            <!-- EQUIPMENT -->
+            <!-- Wellhead -->
+            <rect x="50" y="210" width="80" height="80" rx="4" fill="rgba(0,20,40,0.8)" stroke="#00f0ff" stroke-width="1.5" />
+            <text x="90" y="245" text-anchor="middle" fill="#00f0ff" font-size="10" font-weight="bold">WELLHEAD</text>
+            <text x="90" y="260" text-anchor="middle" fill="#5a7aaa" font-size="9">P: 2500 psi</text>
+
+            <!-- HP SEPARATOR -->
+            <rect x="150" y="210" width="150" height="80" rx="40" fill="rgba(0,20,40,0.8)" stroke="#00e676" stroke-width="1.5" />
+            <text x="225" y="245" text-anchor="middle" fill="#00e676" font-size="10" font-weight="bold">HP SEPARATOR</text>
+            <text x="225" y="260" text-anchor="middle" fill="#5a7aaa" font-size="9">150 psig | 120°F</text>
+
+            <!-- LP SEPARATOR -->
+            <rect x="400" y="210" width="130" height="80" rx="40" fill="rgba(0,20,40,0.8)" stroke="#00e676" stroke-width="1.5" />
+            <text x="465" y="245" text-anchor="middle" fill="#00e676" font-size="10" font-weight="bold">LP SEPARATOR</text>
+            <text x="465" y="260" text-anchor="middle" fill="#5a7aaa" font-size="9">50 psig | 115°F</text>
+
+            <!-- OIL TREATER -->
+            <rect x="630" y="210" width="120" height="80" rx="8" fill="rgba(0,20,40,0.8)" stroke="#ffab40" stroke-width="1.5" />
+            <text x="690" y="245" text-anchor="middle" fill="#ffab40" font-size="10" font-weight="bold">OIL TREATER</text>
+            <text x="690" y="260" text-anchor="middle" fill="#5a7aaa" font-size="9">Desalter/Heater</text>
+
+            <!-- STORAGE -->
+            <rect x="850" y="210" width="100" height="80" rx="4" fill="rgba(0,20,40,0.8)" stroke="#ffc107" stroke-width="1.5" />
+            <text x="900" y="245" text-anchor="middle" fill="#ffc107" font-size="10" font-weight="bold">STORAGE</text>
+            <text x="900" y="260" text-anchor="middle" fill="#5a7aaa" font-size="9">Export Tanks</text>
+
+            <!-- GAS PLANT -->
+            <rect x="350" y="70" width="120" height="60" rx="8" fill="rgba(0,20,40,0.8)" stroke="#ff4444" stroke-width="1.5" />
+            <text x="410" y="100" text-anchor="middle" fill="#ff4444" font-size="10" font-weight="bold">GAS PLANT</text>
+            <text x="410" y="115" text-anchor="middle" fill="#5a7aaa" font-size="9">Comp/Dehy</text>
+
+            <!-- WATER TREATMENT -->
+            <rect x="550" y="370" width="120" height="60" rx="8" fill="rgba(0,20,40,0.8)" stroke="#0088cc" stroke-width="1.5" />
+            <text x="610" y="400" text-anchor="middle" fill="#0088cc" font-size="10" font-weight="bold">WATER TREAT</text>
+            <text x="610" y="415" text-anchor="middle" fill="#5a7aaa" font-size="9">WOSEP/CPI</text>
+
+            <!-- ARROWS -->
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="rgba(0,240,255,0.5)" />
+            </marker>
+          </svg>
+        </div>
+
+        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);padding:30px;color:#fff;z-index:3;">
+          <h3 style="color:#00f0ff;margin:0 0 5px;font-size:18px;">Process Topology View</h3>
+          <p style="color:#5a7aaa;font-size:13px;margin:0;">Interactive schematic showing fluid flow and equipment interconnections.</p>
         </div>
       </div>
 
@@ -512,13 +637,7 @@
 
   </main>
 
-  <!-- ALARMS PANEL -->
-  <div class="alarm-panel" id="alarmPanel">
-    <div class="alarm-head" onclick="document.getElementById('alarmPanel').classList.toggle('minimized')">
-      🚨 <span data-i18n="alarms_title">System Alarms</span> <span id="alarmCount" class="badge">0</span>
-    </div>
-    <div class="alarm-list" id="alarmList"></div>
-  </div>
+  <!-- ALARMS PANEL MOVED TO HEADER -->
 
 </div>
 

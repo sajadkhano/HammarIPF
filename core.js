@@ -108,6 +108,10 @@ function updateOverview(tI,tO,tG){
   var ids={well:fmt(tI)+' bpd',manifold:fmt(tI)+' bpd',hpsep:fmt(tI)+' bpd',lpsep:fmt(tO)+' bpd',gas:fmt(tG)+' MMSCFD',oil:fmt(tO)+' bpd',water:fmt(tW)+' bpd',storage:fmt(tO*5.615)+' bbl',export:fmt(tO)+' bpd'};
   for(var k in ids){var el=$('sv-'+k);if(el)el.textContent=ids[k]}
   $("overviewKPI").innerHTML=kpi("Total Inlet",fmt(tI),"bpd")+kpi("Total Oil",fmt(tO),"bpd")+kpi("Total Gas",fmt(tG),"MMSCFD")+kpi("Demulsifier",fmt(dem),"L/hr");
+  
+  // Update new summary panel
+  var sumInlet = $('sum-inlet');
+  if(sumInlet) sumInlet.innerHTML = fmt(tI) + ' <span style="font-size:10px;">bpd</span>';
 }
 
 // ===== SEPARATOR CALCULATOR (API 12J) =====

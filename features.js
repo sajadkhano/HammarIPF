@@ -274,6 +274,10 @@ function runSimulationStep() {
 // ===== ALARMS SYSTEM =====
 var alarms = [];
 
+function toggleAlarms() {
+  document.getElementById('alarmPanel').classList.toggle('minimized');
+}
+
 function checkAlarms() {
   var p = parseFloat(document.getElementById('sep-P').value);
   var q = parseFloat(document.getElementById('sep-Qo').value);
@@ -301,8 +305,11 @@ function renderAlarms(currentAlarms) {
   });
   
   count.textContent = currentAlarms.length;
-  if (currentAlarms.length > 0) {
-    document.getElementById('alarmPanel').classList.remove('minimized');
+  // If many alarms, maybe don't auto-open but pulse the button
+  if (currentAlarms.length > 0 && document.getElementById('alarmPanel').classList.contains('minimized')) {
+    document.getElementById('alarmToggle').style.animation = 'glow 1s infinite';
+  } else {
+    document.getElementById('alarmToggle').style.animation = 'none';
   }
 }
 

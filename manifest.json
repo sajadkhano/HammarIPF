@@ -2,7 +2,7 @@
   "name": "Hammar IPF - Smart SCADA",
   "short_name": "Hammar SCADA",
   "description": "Advanced GOSP Simulation & Engineering Calculator",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#05080f",
