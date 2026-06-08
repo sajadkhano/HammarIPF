@@ -33,8 +33,8 @@ This project adheres to international engineering standards:
 3. **Data Analysis:** Use the Streamlit version (`app.py`) for deep data analytics.
 
 ---
-### 👤 Developer
-**Sajad Khano**
+### 👤 Developer & Creator
+**sjjad k. Hano (سجاد ك. هانو)**
 [GitHub Profile](https://github.com/sajadkhano)
 
 ---
