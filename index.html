@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Hammar SCADA">
 <meta name="theme-color" content="#1a2030">
 <meta name="msapplication-TileColor" content="#1a2030">
-<title>Hammar IPF - Smart SCADA</title>
+<title>Hammar IPF - Hano Control</title>
 <meta name="description" content="Advanced GOSP simulation platform for oil separation, gas treatment, and surface facilities engineering">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -46,7 +46,7 @@
             <path d="M50,50 Q55,55 50,62 Q45,55 50,50" fill="#ffab40" />
           </svg>
         </div>
-        <h1 class="header-title">🎛️ Hammar IPF - Smart SCADA</h1>
+        <h1 class="header-title">🎛️ Hammar IPF - Hano Control</h1>
       </div>
       <p class="header-sub">Advanced GOSP Simulation &amp; Engineering Calculator — API/ASTM Standards</p>
     </div>
@@ -128,6 +128,16 @@
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5Z" fill="currentColor"/></svg>
       Control Panel
     </button>
+    <button class="nav-btn sd-nav-special" data-tab="sepdesign">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12,1C8.14,1 5,4.14 5,8C5,11.86 8.14,15 12,15C15.86,15 19,11.86 19,8C19,4.14 15.86,1 12,1M12,13A5,5 0 0,1 7,8A5,5 0 0,1 12,3A5,5 0 0,1 17,8A5,5 0 0,1 12,13M12,5A3,3 0 0,0 9,8A3,3 0 0,0 12,11A3,3 0 0,0 15,8A3,3 0 0,0 12,5M2,20V22H22V20C22,17.33 16.67,16 12,16C7.33,16 2,17.33 2,20Z" fill="currentColor"/></svg>
+      <span class="sd-nav-label">Separator Design</span>
+      <span class="sd-nav-badge">NEW</span>
+    </button>
+    <button class="nav-btn sd-nav-special" data-tab="hammar-pfd" style="border-color:rgba(255,171,0,0.4);margin-top:4px;">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M17,12H7V10H17M17,8H7V6H17M7,16H13V14H7M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z" fill="currentColor"/></svg>
+      <span class="sd-nav-label">Hammar IPF PFD</span>
+      <span class="sd-nav-badge" style="background:linear-gradient(90deg,#ff6b00,#ffab00);">PFD</span>
+    </button>
   </nav>
 
 
@@ -168,137 +178,366 @@
         </div>
       </div>
 
-      <!-- SVG Process Schematic -->
-      <div class="schematic-wrap">
-        <svg id="plantSVG" viewBox="0 0 1100 520" xmlns="http://www.w3.org/2000/svg">
+      <!-- SVG Process Schematic — Hammar IPF Figure 1 Layout -->
+      <div class="schematic-wrap" style="overflow-x:auto;overflow-y:hidden;padding:6px 0;">
+        <svg id="plantSVG" viewBox="0 0 1400 625" xmlns="http://www.w3.org/2000/svg"
+             style="width:100%;min-width:900px;display:block;font-family:'Inter',sans-serif;">
           <defs>
-            <linearGradient id="oilG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4a2800"/><stop offset="100%" stop-color="#a05a00"/></linearGradient>
-            <linearGradient id="gasG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8b0000"/><stop offset="100%" stop-color="#ff4444"/></linearGradient>
-            <linearGradient id="watG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#003366"/><stop offset="100%" stop-color="#0088cc"/></linearGradient>
-            <linearGradient id="vesG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a3a5a"/><stop offset="100%" stop-color="#1a2540"/></linearGradient>
-            <filter id="glw"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            <marker id="arrO" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#a05a00"/></marker>
-            <marker id="arrG" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#ff4444"/></marker>
-            <marker id="arrW" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#0088cc"/></marker>
-            <marker id="arrC" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#00e676"/></marker>
+            <linearGradient id="oilG"  x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6b2e00"/><stop offset="100%" stop-color="#ffab40"/></linearGradient>
+            <linearGradient id="gasG"  x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6a0000"/><stop offset="100%" stop-color="#ff5252"/></linearGradient>
+            <linearGradient id="watG"  x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#002244"/><stop offset="100%" stop-color="#29b6f6"/></linearGradient>
+            <linearGradient id="rivG"  x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#004d22"/><stop offset="100%" stop-color="#00e676"/></linearGradient>
+            <linearGradient id="vesG"  x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1e3048"/><stop offset="100%" stop-color="#0c1a28"/></linearGradient>
+            <linearGradient id="ov-zonGas" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(160,30,30,0.09)"/><stop offset="100%" stop-color="rgba(160,30,30,0)"/></linearGradient>
+            <linearGradient id="ov-zonOil" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(180,100,0,0.08)"/><stop offset="100%" stop-color="rgba(180,100,0,0)"/></linearGradient>
+            <linearGradient id="ov-zonWat" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,80,180,0.09)"/><stop offset="100%" stop-color="rgba(0,80,180,0)"/></linearGradient>
+            <filter id="glw"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="dropshadow"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.5)"/></filter>
+            <marker id="arrO"   viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#ffab40"/></marker>
+            <marker id="arrG"   viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#ff5252"/></marker>
+            <marker id="arrW"   viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#29b6f6"/></marker>
+            <marker id="arrR"   viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#00e676"/></marker>
+            <marker id="arrC"   viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#00e676"/></marker>
+            <marker id="arrWdn" viewBox="0 0 6 10" refX="3" refY="9" markerWidth="6" markerHeight="8" orient="auto"><path d="M0,0 L3,10 L6,0z" fill="#29b6f6"/></marker>
+            <marker id="arrRup" viewBox="0 0 6 10" refX="3" refY="1" markerWidth="6" markerHeight="8" orient="auto"><path d="M0,10 L3,0 L6,10z" fill="#00e676"/></marker>
           </defs>
-          <!-- Background grid -->
-          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,240,255,0.03)" stroke-width="0.5"/></pattern>
-          <rect width="1100" height="520" fill="url(#grid)"/>
-          <!-- WELLHEAD -->
-          <g class="svg-node" onclick="switchTab('separator')" style="cursor:pointer">
-            <rect x="20" y="180" width="80" height="100" rx="6" fill="url(#vesG)" stroke="#00f0ff" stroke-width="1"/>
-            <line x1="60" y1="180" x2="60" y2="140" stroke="#00f0ff" stroke-width="2"/>
-            <circle cx="60" cy="135" r="8" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
-            <line x1="45" y1="135" x2="75" y2="135" stroke="#00f0ff" stroke-width="1.5"/>
-            <text x="60" y="240" text-anchor="middle" fill="#00f0ff" font-size="10" font-weight="700" data-i18n="svg_wellhead">WELLHEAD</text>
-            <text x="60" y="255" text-anchor="middle" fill="#5a7aaa" font-size="9" id="sv-well">— bpd</text>
+
+          <!-- Background + grid -->
+          <rect width="1400" height="625" fill="#060e1a" rx="12"/>
+          <pattern id="ovGrid" width="35" height="35" patternUnits="userSpaceOnUse">
+            <path d="M35 0L0 0 0 35" fill="none" stroke="rgba(0,200,255,0.025)" stroke-width="0.5"/>
+          </pattern>
+          <rect width="1400" height="625" fill="url(#ovGrid)" rx="12"/>
+
+          <!-- Zone Backgrounds -->
+          <rect x="8" y="30"  width="1385" height="188" rx="6" fill="url(#ov-zonGas)" opacity="0.9"/>
+          <rect x="8" y="222" width="1385" height="218" rx="6" fill="url(#ov-zonOil)" opacity="0.9"/>
+          <rect x="8" y="444" width="1385" height="170" rx="6" fill="url(#ov-zonWat)" opacity="0.9"/>
+          <line x1="14" y1="220" x2="1388" y2="220" stroke="rgba(255,171,0,0.14)" stroke-width="1" stroke-dasharray="10,6"/>
+          <line x1="14" y1="442" x2="1388" y2="442" stroke="rgba(0,140,255,0.14)" stroke-width="1" stroke-dasharray="10,6"/>
+
+          <!-- Zone side bars -->
+          <rect x="8" y="30"  width="22" height="188" rx="4" fill="rgba(220,40,40,0.12)"/>
+          <rect x="8" y="222" width="22" height="218" rx="4" fill="rgba(220,130,0,0.12)"/>
+          <rect x="8" y="444" width="22" height="170" rx="4" fill="rgba(0,120,230,0.12)"/>
+          <text x="19" y="140" text-anchor="middle" fill="rgba(255,100,100,0.85)" font-size="9" font-weight="700" letter-spacing="2" transform="rotate(-90,19,140)">GAS TRAIN</text>
+          <text x="19" y="345" text-anchor="middle" fill="rgba(255,171,64,0.85)" font-size="9" font-weight="700" letter-spacing="2" transform="rotate(-90,19,345)">OIL PROCESS</text>
+          <text x="19" y="535" text-anchor="middle" fill="rgba(41,182,246,0.85)" font-size="9" font-weight="700" letter-spacing="2" transform="rotate(-90,19,535)">WATER SYSTEM</text>
+
+          <!-- Title -->
+          <rect x="8" y="6" width="1385" height="22" rx="5" fill="rgba(0,15,40,0.8)" stroke="rgba(0,240,255,0.2)" stroke-width="1"/>
+          <text x="700" y="21" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="800" letter-spacing="2">HAMMAR IPF — SIMPLIFIED OVERVIEW  (Figure 1, Weatherford O&amp;M Vol.1)  ·  Click any block to navigate</text>
+
+          <!-- Fuel/Flare header line -->
+          <line x1="36" y1="48" x2="1360" y2="48" stroke="rgba(255,82,82,0.14)" stroke-width="1" stroke-dasharray="8,6"/>
+          <text x="40" y="44" fill="rgba(255,82,82,0.5)" font-size="8" font-weight="600">HP/LP Fuel Gas  ·  HP Flare  ·  LP Flare</text>
+
+          <!-- ══════════════ ROW 1: GAS TRAIN (Y~125) ══════════════ -->
+
+          <!-- LP COMPRESSOR -->
+          <g class="svg-node" onclick="switchTab('gas')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="150" y="68" width="118" height="74" rx="7" fill="url(#vesG)" stroke="#ff5252" stroke-width="1.8"/>
+            <polygon points="168,96 168,120 194,108" fill="none" stroke="#ff5252" stroke-width="1.8"/>
+            <circle cx="216" cy="108" r="13" fill="none" stroke="#ff5252" stroke-width="1.6"/>
+            <line x1="203" y1="108" x2="229" y2="108" stroke="#ff5252" stroke-width="1.2"/>
+            <text x="209" y="154" text-anchor="middle" fill="#ff5252" font-size="9.5" font-weight="700">LP COMP.</text>
+            <text x="209" y="166" text-anchor="middle" fill="#888" font-size="8">1st Stage Gas</text>
           </g>
-          <!-- Flow: Wellhead to Manifold -->
-          <line x1="100" y1="230" x2="150" y2="230" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
-          <!-- MANIFOLD -->
-          <g class="svg-node">
-            <rect x="155" y="200" width="70" height="60" rx="6" fill="url(#vesG)" stroke="#ffab40" stroke-width="1"/>
-            <line x1="175" y1="215" x2="175" y2="245" stroke="#ffab40" stroke-width="1.5"/>
-            <line x1="190" y1="215" x2="190" y2="245" stroke="#ffab40" stroke-width="1.5"/>
-            <line x1="205" y1="215" x2="205" y2="245" stroke="#ffab40" stroke-width="1.5"/>
-            <text x="190" y="275" text-anchor="middle" fill="#ffab40" font-size="10" font-weight="700" data-i18n="svg_manifold">MANIFOLD</text>
-            <text x="190" y="290" text-anchor="middle" fill="#5a7aaa" font-size="9" id="sv-manifold">— bpd</text>
+          <line x1="209" y1="68" x2="209" y2="48" stroke="#ff5252" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+
+          <line x1="268" y1="105" x2="314" y2="105" stroke="url(#gasG)" stroke-width="2.5" marker-end="url(#arrG)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+
+          <!-- HP COMPRESSOR -->
+          <g class="svg-node" onclick="switchTab('gas')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="316" y="68" width="118" height="74" rx="7" fill="url(#vesG)" stroke="#ff5252" stroke-width="1.8"/>
+            <polygon points="334,96 334,120 360,108" fill="none" stroke="#ff5252" stroke-width="1.8"/>
+            <circle cx="382" cy="108" r="13" fill="none" stroke="#ff5252" stroke-width="1.6"/>
+            <line x1="369" y1="108" x2="395" y2="108" stroke="#ff5252" stroke-width="1.2"/>
+            <text x="375" y="154" text-anchor="middle" fill="#ff5252" font-size="9.5" font-weight="700">HP COMP.</text>
+            <text x="375" y="166" text-anchor="middle" fill="#888" font-size="8">2nd Stage Gas</text>
           </g>
-          <!-- Flow: Manifold to HP Sep -->
-          <line x1="225" y1="230" x2="280" y2="230" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
-          <!-- HP SEPARATOR (horizontal vessel) -->
-          <g class="svg-node" onclick="switchTab('separator')" style="cursor:pointer">
-            <rect x="285" y="195" width="140" height="70" rx="35" fill="url(#vesG)" stroke="#00e676" stroke-width="1.5"/>
-            <line x1="285" y1="235" x2="425" y2="235" stroke="#a05a00" stroke-width="1" opacity="0.5"/>
-            <rect x="310" y="210" width="90" height="15" rx="3" fill="#a05a00" opacity="0.3"/>
-            <rect x="310" y="235" width="90" height="15" rx="3" fill="#003366" opacity="0.3"/>
-            <text x="355" y="275" text-anchor="middle" fill="#00e676" font-size="10" font-weight="700" data-i18n="svg_hpsep">HP SEPARATOR</text>
-            <text x="355" y="290" text-anchor="middle" fill="#5a7aaa" font-size="9" id="sv-hpsep">— bpd</text>
+          <line x1="375" y1="68" x2="375" y2="48" stroke="#ff5252" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+
+          <line x1="434" y1="105" x2="478" y2="105" stroke="url(#gasG)" stroke-width="2.5" marker-end="url(#arrG)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+
+          <!-- CRUDE/CRUDE EXCHANGER -->
+          <g class="svg-node" onclick="switchTab('oil')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="480" y="68" width="128" height="74" rx="7" fill="url(#vesG)" stroke="#ffab40" stroke-width="1.8"/>
+            <path d="M498,86 Q514,112 530,86" fill="none" stroke="#ffab40" stroke-width="1.8"/>
+            <path d="M530,86 Q546,112 562,86" fill="none" stroke="#ffab40" stroke-width="1.8"/>
+            <path d="M498,126 Q514,102 530,126" fill="none" stroke="#ffab40" stroke-width="1.3" opacity="0.5"/>
+            <path d="M530,126 Q546,102 562,126" fill="none" stroke="#ffab40" stroke-width="1.3" opacity="0.5"/>
+            <text x="544" y="154" text-anchor="middle" fill="#ffab40" font-size="9" font-weight="700">C/C EXCHANGER</text>
           </g>
-          <!-- Flow: HP to LP -->
-          <line x1="425" y1="230" x2="480" y2="230" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
-          <!-- LP SEPARATOR -->
-          <g class="svg-node" onclick="switchTab('separator')" style="cursor:pointer">
-            <rect x="485" y="195" width="130" height="70" rx="35" fill="url(#vesG)" stroke="#00e676" stroke-width="1.5"/>
-            <rect x="505" y="210" width="85" height="15" rx="3" fill="#a05a00" opacity="0.3"/>
-            <rect x="505" y="235" width="85" height="15" rx="3" fill="#003366" opacity="0.3"/>
-            <text x="550" y="275" text-anchor="middle" fill="#00e676" font-size="10" font-weight="700" data-i18n="svg_lpsep">LP SEPARATOR</text>
-            <text x="550" y="290" text-anchor="middle" fill="#5a7aaa" font-size="9" id="sv-lpsep">— bpd</text>
+
+          <line x1="608" y1="105" x2="652" y2="105" stroke="url(#gasG)" stroke-width="2.5" marker-end="url(#arrG)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+
+          <!-- CRUDE OIL HEATER -->
+          <g class="svg-node" onclick="switchTab('oil')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="654" y="68" width="116" height="74" rx="7" fill="url(#vesG)" stroke="#ff9800" stroke-width="1.8"/>
+            <path d="M686,128 Q686,104 696,92 Q696,112 706,102 Q706,128 686,128" fill="none" stroke="#ff9800" stroke-width="2"/>
+            <path d="M692,124 Q692,110 698,102" fill="none" stroke="#ffcc02" stroke-width="1.5" opacity="0.7"/>
+            <text x="712" y="154" text-anchor="middle" fill="#ff9800" font-size="9" font-weight="700">CRUDE HEATER</text>
+            <text x="712" y="166" text-anchor="middle" fill="#888" font-size="8">Direct Fired</text>
           </g>
-          <!-- GAS out from HP Sep -->
-          <line x1="355" y1="195" x2="355" y2="80" stroke="url(#gasG)" stroke-width="2" marker-end="url(#arrG)" stroke-dasharray="6,3"><animate attributeName="stroke-dashoffset" from="9" to="0" dur="0.8s" repeatCount="indefinite"/></line>
-          <!-- GAS TREATMENT -->
-          <g class="svg-node" onclick="switchTab('gas')" style="cursor:pointer">
-            <rect x="300" y="30" width="110" height="50" rx="8" fill="url(#vesG)" stroke="#ff4444" stroke-width="1.5"/>
-            <polygon points="340,42 340,68 360,55" fill="none" stroke="#ff4444" stroke-width="1.5"/>
-            <circle cx="380" cy="55" r="10" fill="none" stroke="#ff4444" stroke-width="1"/>
-            <text x="355" y="95" text-anchor="middle" fill="#ff4444" font-size="10" font-weight="700" data-i18n="svg_gas">GAS TREATMENT</text>
-            <text x="355" y="110" text-anchor="middle" fill="#5a7aaa" font-size="9" id="sv-gas">— MMSCFD</text>
+          <line x1="712" y1="68" x2="712" y2="48" stroke="#ff9800" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+
+          <line x1="770" y1="105" x2="824" y2="105" stroke="url(#gasG)" stroke-width="3" marker-end="url(#arrG)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+
+          <!-- GAS EXPORT PIPELINE -->
+          <g class="svg-node" filter="url(#dropshadow)">
+            <rect x="826" y="60" width="158" height="90" rx="7" fill="url(#vesG)" stroke="#ff5252" stroke-width="2.2"/>
+            <text x="905" y="98"  text-anchor="middle" fill="#ff5252" font-size="12" font-weight="800">GAS EXPORT</text>
+            <text x="905" y="113" text-anchor="middle" fill="#ff5252" font-size="12" font-weight="800">PIPELINE</text>
+            <text x="905" y="133" text-anchor="middle" fill="#aaa"   font-size="9">136.8 MMSCFD  Sweet</text>
+            <text x="905" y="146" text-anchor="middle" fill="#888"   font-size="8.5" id="sv-gas">— MMSCFD</text>
           </g>
-          <!-- Gas export line -->
-          <line x1="410" y1="55" x2="500" y2="55" stroke="url(#gasG)" stroke-width="2" marker-end="url(#arrG)"/>
-          <text x="500" y="50" fill="#ff4444" font-size="9" font-weight="600" data-i18n="svg_gasexp">GAS EXPORT</text>
-          <!-- OIL out from LP Sep -->
-          <line x1="615" y1="230" x2="670" y2="230" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
-          <!-- OIL TREATMENT -->
-          <g class="svg-node" onclick="switchTab('oil')" style="cursor:pointer">
-            <rect x="675" y="200" width="120" height="60" rx="8" fill="url(#vesG)" stroke="#ff9800" stroke-width="1.5"/>
-            <rect x="690" y="212" width="35" height="36" rx="4" fill="none" stroke="#ff9800" stroke-width="1" stroke-dasharray="3,2"/>
-            <text x="707" y="234" text-anchor="middle" fill="#ff9800" font-size="8">HTR</text>
-            <rect x="740" y="212" width="40" height="36" rx="4" fill="none" stroke="#ff9800" stroke-width="1"/>
-            <text x="760" y="234" text-anchor="middle" fill="#ff9800" font-size="8">DESAL</text>
-            <text x="735" y="275" text-anchor="middle" fill="#ff9800" font-size="10" font-weight="700" data-i18n="svg_oil">OIL TREATMENT</text>
-            <text x="735" y="290" text-anchor="middle" fill="#5a7aaa" font-size="9" id="sv-oil">— bpd</text>
+          <line x1="984" y1="105" x2="1036" y2="105" stroke="url(#gasG)" stroke-width="3" marker-end="url(#arrG)"/>
+          <line x1="1036" y1="80" x2="1036" y2="132" stroke="#ff5252" stroke-width="4" opacity="0.9"/>
+          <text x="1050" y="98" fill="#ff5252" font-size="9.5" font-weight="700">EXPORT →</text>
+          <line x1="905" y1="60" x2="905" y2="48" stroke="#ff5252" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.5"/>
+          <text x="905" y="44" text-anchor="middle" fill="rgba(255,82,82,0.5)" font-size="7.5">Condensate Header</text>
+
+          <!-- ══════════════ ROW 2: OIL PROCESS (Y~328) ══════════════ -->
+
+          <!-- PRODUCTION FLUIDS INLET -->
+          <g class="svg-node" onclick="switchTab('trains')" style="cursor:pointer;" filter="url(#glw)">
+            <rect x="36" y="244" width="108" height="78" rx="7" fill="url(#vesG)" stroke="#ffab40" stroke-width="2"/>
+            <text x="90" y="274" text-anchor="middle" fill="#ffab40" font-size="10" font-weight="800">PRODUCTION</text>
+            <text x="90" y="288" text-anchor="middle" fill="#ffab40" font-size="10" font-weight="800">FLUIDS</text>
+            <text x="90" y="302" text-anchor="middle" fill="#aaa"   font-size="8.5">from DGS Wells</text>
+            <text x="90" y="315" text-anchor="middle" fill="#00e676" font-size="8.5" font-weight="700" id="sv-well">— bpd</text>
           </g>
-          <!-- WATER out from LP Sep -->
-          <line x1="550" y1="265" x2="550" y2="370" stroke="url(#watG)" stroke-width="2" marker-end="url(#arrW)" stroke-dasharray="6,3"><animate attributeName="stroke-dashoffset" from="9" to="0" dur="0.8s" repeatCount="indefinite"/></line>
-          <!-- WATER TREATMENT -->
-          <g class="svg-node" onclick="switchTab('water')" style="cursor:pointer">
-            <rect x="490" y="375" width="120" height="55" rx="8" fill="url(#vesG)" stroke="#0088cc" stroke-width="1.5"/>
-            <ellipse cx="530" cy="402" rx="18" ry="14" fill="none" stroke="#0088cc" stroke-width="1"/>
-            <ellipse cx="570" cy="402" rx="18" ry="14" fill="none" stroke="#0088cc" stroke-width="1"/>
-            <text x="550" y="445" text-anchor="middle" fill="#0088cc" font-size="10" font-weight="700" data-i18n="svg_water">WATER TREATMENT</text>
-            <text x="550" y="460" text-anchor="middle" fill="#5a7aaa" font-size="9" id="sv-water">— bpd</text>
+
+          <line x1="144" y1="283" x2="170" y2="283" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- 1ST STAGE SEPARATOR -->
+          <g class="svg-node" onclick="switchTab('separator')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="172" y="246" width="142" height="74" rx="37" fill="url(#vesG)" stroke="#00e676" stroke-width="2"/>
+            <rect x="194" y="261" width="99" height="14" rx="3" fill="#a05a00" opacity="0.5"/>
+            <rect x="194" y="282" width="99" height="14" rx="3" fill="#003366" opacity="0.5"/>
+            <line x1="189" y1="276" x2="307" y2="276" stroke="rgba(0,240,255,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="243" y="337" text-anchor="middle" fill="#00e676" font-size="10" font-weight="700">1st STAGE SEP.</text>
+            <text x="243" y="350" text-anchor="middle" fill="#888"   font-size="8.5" id="sv-hpsep">15.2–36.6 barg</text>
           </g>
-          <!-- Oil to Storage -->
-          <line x1="795" y1="230" x2="850" y2="230" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
-          <!-- STORAGE TANKS -->
-          <g class="svg-node" onclick="switchTab('storage')" style="cursor:pointer">
-            <rect x="855" y="185" width="50" height="80" rx="4" fill="url(#vesG)" stroke="#ffc107" stroke-width="1.5"/>
-            <rect x="860" y="220" width="40" height="40" rx="2" fill="#a05a00" opacity="0.25"/>
-            <rect x="915" y="185" width="50" height="80" rx="4" fill="url(#vesG)" stroke="#ffc107" stroke-width="1.5"/>
-            <rect x="920" y="210" width="40" height="50" rx="2" fill="#a05a00" opacity="0.3"/>
-            <text x="910" y="280" text-anchor="middle" fill="#ffc107" font-size="10" font-weight="700" data-i18n="svg_storage">STORAGE</text>
-            <text x="910" y="295" text-anchor="middle" fill="#5a7aaa" font-size="9" id="sv-storage">— bbl</text>
+          <!-- gas up -->
+          <line x1="243" y1="246" x2="243" y2="182" stroke="url(#gasG)" stroke-width="2" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="10" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+          <line x1="243" y1="182" x2="209" y2="142" stroke="url(#gasG)" stroke-width="2" marker-end="url(#arrG)" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="10" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+          <text x="256" y="216" fill="#ff5252" font-size="8" opacity="0.7">Gas ↑</text>
+          <!-- PW down -->
+          <line x1="243" y1="320" x2="243" y2="455" stroke="url(#watG)" stroke-width="2" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="10" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+          <text x="256" y="390" fill="#29b6f6" font-size="8" opacity="0.7">PW ↓</text>
+
+          <line x1="314" y1="283" x2="348" y2="283" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- 2ND STAGE SEPARATOR -->
+          <g class="svg-node" onclick="switchTab('separator')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="350" y="246" width="142" height="74" rx="37" fill="url(#vesG)" stroke="#00e676" stroke-width="2"/>
+            <rect x="372" y="261" width="99" height="14" rx="3" fill="#a05a00" opacity="0.5"/>
+            <rect x="372" y="282" width="99" height="14" rx="3" fill="#003366" opacity="0.5"/>
+            <line x1="367" y1="276" x2="485" y2="276" stroke="rgba(0,240,255,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="421" y="337" text-anchor="middle" fill="#00e676" font-size="10" font-weight="700">2nd STAGE SEP.</text>
+            <text x="421" y="350" text-anchor="middle" fill="#888"   font-size="8.5" id="sv-lpsep">LP Stage</text>
           </g>
-          <!-- Export -->
-          <line x1="965" y1="225" x2="1020" y2="225" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)"/>
-          <g class="svg-node">
-            <rect x="1020" y="200" width="65" height="50" rx="8" fill="url(#vesG)" stroke="#00e676" stroke-width="1.5"/>
-            <text x="1052" y="230" text-anchor="middle" fill="#00e676" font-size="16">🚢</text>
-            <text x="1052" y="265" text-anchor="middle" fill="#00e676" font-size="10" font-weight="700" data-i18n="svg_export">EXPORT</text>
-            <text x="1052" y="280" text-anchor="middle" fill="#5a7aaa" font-size="9" id="sv-export">— bpd</text>
+          <!-- gas up -->
+          <line x1="421" y1="246" x2="421" y2="182" stroke="url(#gasG)" stroke-width="2" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="10" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+          <line x1="421" y1="182" x2="375" y2="142" stroke="url(#gasG)" stroke-width="2" marker-end="url(#arrG)" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="10" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+          <text x="434" y="216" fill="#ff5252" font-size="8" opacity="0.7">Gas ↑</text>
+          <!-- PW down -->
+          <line x1="421" y1="320" x2="421" y2="455" stroke="url(#watG)" stroke-width="2" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="10" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+          <text x="434" y="390" fill="#29b6f6" font-size="8" opacity="0.7">PW ↓</text>
+
+          <line x1="492" y1="283" x2="526" y2="283" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- RUN DOWN COOLER -->
+          <g class="svg-node" onclick="switchTab('oil')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="528" y="248" width="116" height="70" rx="7" fill="url(#vesG)" stroke="#29b6f6" stroke-width="1.8"/>
+            <path d="M544,266 Q562,286 580,266" fill="none" stroke="#29b6f6" stroke-width="1.8"/>
+            <path d="M580,266 Q598,286 616,266" fill="none" stroke="#29b6f6" stroke-width="1.8"/>
+            <path d="M544,288 Q562,268 580,288" fill="none" stroke="#29b6f6" stroke-width="1.3" opacity="0.5"/>
+            <path d="M580,288 Q598,268 616,288" fill="none" stroke="#29b6f6" stroke-width="1.3" opacity="0.5"/>
+            <text x="586" y="334" text-anchor="middle" fill="#29b6f6" font-size="9.5" font-weight="700">RUN DOWN</text>
+            <text x="586" y="347" text-anchor="middle" fill="#29b6f6" font-size="9.5" font-weight="700">COOLER</text>
           </g>
-          <!-- CHEMICAL INJECTION -->
-          <g class="svg-node" onclick="switchTab('chemical')" style="cursor:pointer">
-            <rect x="670" y="380" width="110" height="45" rx="8" fill="url(#vesG)" stroke="#e91e63" stroke-width="1"/>
-            <text x="725" y="407" text-anchor="middle" fill="#e91e63" font-size="9" font-weight="700" data-i18n="svg_chem">CHEMICAL INJ.</text>
-            <line x1="725" y1="380" x2="725" y2="260" stroke="#e91e63" stroke-width="1" stroke-dasharray="4,3"><animate attributeName="stroke-dashoffset" from="7" to="0" dur="1.2s" repeatCount="indefinite"/></line>
-            <circle cx="725" cy="340" r="4" fill="#e91e63" opacity="0.6"><animate attributeName="cy" from="380" to="260" dur="2s" repeatCount="indefinite"/></circle>
+          <!-- hot crude -> HEX -->
+          <line x1="586" y1="248" x2="586" y2="196" stroke="url(#oilG)" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5"><animate attributeName="stroke-dashoffset" from="8" to="0" dur="1.4s" repeatCount="indefinite"/></line>
+          <line x1="586" y1="196" x2="544" y2="142" stroke="url(#oilG)" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5" marker-end="url(#arrO)"><animate attributeName="stroke-dashoffset" from="8" to="0" dur="1.4s" repeatCount="indefinite"/></line>
+
+          <line x1="644" y1="283" x2="678" y2="283" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- DESALTER -->
+          <g class="svg-node" onclick="switchTab('oil')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="680" y="246" width="148" height="74" rx="37" fill="url(#vesG)" stroke="#ffab40" stroke-width="2"/>
+            <rect x="700" y="261" width="108" height="14" rx="3" fill="#a05a00" opacity="0.5"/>
+            <rect x="700" y="282" width="108" height="14" rx="3" fill="#003366" opacity="0.5"/>
+            <text x="754" y="272" text-anchor="middle" fill="rgba(255,200,0,0.55)" font-size="8">&#9889;&#9889;&#9889;</text>
+            <text x="754" y="337" text-anchor="middle" fill="#ffab40" font-size="10" font-weight="700">DESALTER</text>
+            <text x="754" y="350" text-anchor="middle" fill="#888"   font-size="8.5" id="sv-oil">Electrostatic</text>
           </g>
+          <!-- wash water -->
+          <line x1="754" y1="320" x2="754" y2="455" stroke="url(#rivG)" stroke-width="1.8" stroke-dasharray="5,4" opacity="0.65"><animate attributeName="stroke-dashoffset" from="9" to="0" dur="1.4s" repeatCount="indefinite"/></line>
+          <text x="768" y="390" fill="#00e676" font-size="8" opacity="0.7">Wash&#8597;</text>
+
+          <line x1="828" y1="283" x2="860" y2="283" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- DEHYDRATOR -->
+          <g class="svg-node" onclick="switchTab('oil')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="862" y="246" width="155" height="74" rx="37" fill="url(#vesG)" stroke="#ffab40" stroke-width="2"/>
+            <rect x="883" y="261" width="112" height="14" rx="3" fill="#a05a00" opacity="0.5"/>
+            <rect x="883" y="282" width="112" height="14" rx="3" fill="#003366" opacity="0.4"/>
+            <text x="939" y="272" text-anchor="middle" fill="rgba(255,200,0,0.55)" font-size="8">&#9889;&#9889;&#9889;</text>
+            <text x="939" y="337" text-anchor="middle" fill="#ffab40" font-size="10" font-weight="700">DEHYDRATOR</text>
+            <text x="939" y="350" text-anchor="middle" fill="#888"   font-size="8.5">Electrostatic</text>
+          </g>
+          <!-- PW down -->
+          <line x1="939" y1="320" x2="939" y2="455" stroke="url(#watG)" stroke-width="2" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="10" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+          <text x="952" y="390" fill="#29b6f6" font-size="8" opacity="0.7">PW ↓</text>
+
+          <line x1="1017" y1="283" x2="1056" y2="283" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- CRUDE OIL TANK -->
+          <g class="svg-node" onclick="switchTab('storage')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="1058" y="234" width="80" height="106" rx="5" fill="url(#vesG)" stroke="#ffc107" stroke-width="2"/>
+            <rect x="1066" y="276" width="64" height="57" rx="3" fill="#8b3a00" opacity="0.4"/>
+            <ellipse cx="1098" cy="238" rx="36" ry="7" fill="none" stroke="#ffc107" stroke-width="1.5"/>
+            <line x1="1058" y1="292" x2="1138" y2="292" stroke="#ffc107" stroke-width="1" opacity="0.5"/>
+            <text x="1098" y="352" text-anchor="middle" fill="#ffc107" font-size="9.5" font-weight="700">CRUDE OIL</text>
+            <text x="1098" y="365" text-anchor="middle" fill="#ffc107" font-size="9.5" font-weight="700">TANK</text>
+            <text x="1098" y="378" text-anchor="middle" fill="#888"   font-size="8" id="sv-storage">On-Spec</text>
+          </g>
+
+          <!-- OFF-SPEC TANK -->
+          <g class="svg-node" onclick="switchTab('storage')" style="cursor:pointer;">
+            <rect x="1058" y="395" width="80" height="56" rx="5" fill="url(#vesG)" stroke="#ff9800" stroke-width="1.5"/>
+            <rect x="1066" y="407" width="64" height="37" rx="3" fill="#6b3a00" opacity="0.4"/>
+            <text x="1098" y="462" text-anchor="middle" fill="#ff9800" font-size="8.5" font-weight="700">OFF-SPEC</text>
+            <text x="1098" y="474" text-anchor="middle" fill="#ff9800" font-size="8.5" font-weight="700">TANK</text>
+          </g>
+
+          <line x1="1138" y1="272" x2="1186" y2="272" stroke="url(#oilG)" stroke-width="2.8" marker-end="url(#arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- EXPORT PUMPS + PIPELINE -->
+          <g class="svg-node" onclick="switchTab('storage')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="1188" y="246" width="68" height="56" rx="6" fill="url(#vesG)" stroke="#00e676" stroke-width="1.8"/>
+            <circle cx="1222" cy="266" r="13" fill="none" stroke="#00e676" stroke-width="1.8"/>
+            <text x="1222" y="271" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">P</text>
+            <text x="1222" y="315" text-anchor="middle" fill="#00e676" font-size="9" font-weight="700">EXPORT</text>
+            <text x="1222" y="327" text-anchor="middle" fill="#00e676" font-size="9" font-weight="700">PUMPS</text>
+          </g>
+          <line x1="1222" y1="246" x2="1222" y2="202" stroke="url(#oilG)" stroke-width="3" marker-end="url(#arrO)"/>
+          <rect x="1152" y="172" width="162" height="32" rx="5" fill="rgba(107,46,0,0.3)" stroke="#ffab40" stroke-width="1.5"/>
+          <text x="1233" y="192" text-anchor="middle" fill="#ffab40" font-size="9.5" font-weight="700">CRUDE EXPORT PIPELINE &#8594;</text>
+          <text x="1233" y="203" text-anchor="middle" fill="#888" font-size="7.5" id="sv-export">— bpd</text>
+
+          <!-- Off-spec recycle -->
+          <path d="M1138,423 L1164,423 L1164,374 L1098,374 L1098,340" fill="none" stroke="url(#oilG)" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.45" marker-end="url(#arrO)"/>
+
+          <!-- ══════════════ ROW 3: WATER SYSTEM (Y~525) ══════════════ -->
+
+          <!-- PW Collection Header -->
+          <line x1="243" y1="493" x2="939" y2="493" stroke="url(#watG)" stroke-width="2.5" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+          <text x="591" y="487" text-anchor="middle" fill="#29b6f6" font-size="8.5" font-weight="600" opacity="0.85">— Produced Water Collection Header —</text>
+
+          <!-- PW drop lines -->
+          <line x1="243" y1="455" x2="243" y2="493" stroke="url(#watG)" stroke-width="2" marker-end="url(#arrWdn)"/>
+          <line x1="421" y1="455" x2="421" y2="493" stroke="url(#watG)" stroke-width="2" marker-end="url(#arrWdn)"/>
+          <line x1="754" y1="455" x2="754" y2="493" stroke="url(#watG)" stroke-width="2" marker-end="url(#arrWdn)"/>
+          <line x1="939" y1="455" x2="939" y2="493" stroke="url(#watG)" stroke-width="2" marker-end="url(#arrWdn)"/>
+
+          <!-- WASH WATER RECIRC PUMPS -->
+          <g class="svg-node" onclick="switchTab('water')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="36" y="493" width="152" height="68" rx="7" fill="url(#vesG)" stroke="#00e676" stroke-width="1.8"/>
+            <circle cx="70" cy="527" r="13" fill="none" stroke="#00e676" stroke-width="1.6"/>
+            <text x="70" y="532" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">P</text>
+            <text x="132" y="519" text-anchor="middle" fill="#00e676" font-size="9.5" font-weight="700">WASH WATER</text>
+            <text x="132" y="532" text-anchor="middle" fill="#00e676" font-size="9.5" font-weight="700">RECIRC PUMPS</text>
+            <text x="132" y="545" text-anchor="middle" fill="#888"  font-size="8">Desalter / Dehydrator</text>
+          </g>
+          <line x1="243" y1="493" x2="188" y2="493" stroke="url(#watG)" stroke-width="2.5" marker-end="url(#arrW)"/>
+          <path d="M188,527 L236,527 L236,464 L754,464 L754,455" fill="none" stroke="url(#rivG)" stroke-width="1.8" stroke-dasharray="5,4" opacity="0.65" marker-end="url(#arrRup)"/>
+
+          <!-- PW TRANSFER PUMPS -->
+          <g class="svg-node" onclick="switchTab('water')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="282" y="493" width="152" height="68" rx="7" fill="url(#vesG)" stroke="#29b6f6" stroke-width="1.8"/>
+            <circle cx="316" cy="527" r="13" fill="none" stroke="#29b6f6" stroke-width="1.6"/>
+            <text x="316" y="532" text-anchor="middle" fill="#29b6f6" font-size="11" font-weight="700">P</text>
+            <text x="378" y="519" text-anchor="middle" fill="#29b6f6" font-size="9.5" font-weight="700">PW TRANSFER</text>
+            <text x="378" y="532" text-anchor="middle" fill="#29b6f6" font-size="9.5" font-weight="700">PUMPS</text>
+            <text x="378" y="545" text-anchor="middle" fill="#888"   font-size="8">TDS 213,152 ppm</text>
+          </g>
+          <line x1="434" y1="527" x2="472" y2="527" stroke="url(#watG)" stroke-width="2.5" marker-end="url(#arrW)" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- PW BUFFER TANK -->
+          <g class="svg-node" onclick="switchTab('water')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="474" y="485" width="72" height="90" rx="5" fill="url(#vesG)" stroke="#29b6f6" stroke-width="1.8"/>
+            <rect x="482" y="519" width="56" height="49" rx="3" fill="#003366" opacity="0.5"/>
+            <line x1="474" y1="535" x2="546" y2="535" stroke="#29b6f6" stroke-width="1" opacity="0.5"/>
+            <text x="510" y="585" text-anchor="middle" fill="#29b6f6" font-size="8.5" font-weight="700">PW BUFFER</text>
+            <text x="510" y="597" text-anchor="middle" fill="#29b6f6" font-size="8.5" font-weight="700">TANK</text>
+          </g>
+          <line x1="546" y1="527" x2="576" y2="527" stroke="url(#watG)" stroke-width="2.5" marker-end="url(#arrW)" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- PW TREATMENT PACKAGE -->
+          <g class="svg-node" onclick="switchTab('water')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="578" y="483" width="166" height="90" rx="7" fill="url(#vesG)" stroke="#29b6f6" stroke-width="2"/>
+            <ellipse cx="620" cy="519" rx="21" ry="17" fill="none" stroke="#29b6f6" stroke-width="1.6"/>
+            <ellipse cx="670" cy="519" rx="21" ry="17" fill="none" stroke="#29b6f6" stroke-width="1.6"/>
+            <ellipse cx="718" cy="519" rx="14" ry="17" fill="none" stroke="#29b6f6" stroke-width="1.3" opacity="0.6"/>
+            <text x="660" y="553" text-anchor="middle" fill="#29b6f6" font-size="9.5" font-weight="700">PW TREATMENT</text>
+            <text x="660" y="566" text-anchor="middle" fill="#888"   font-size="8.5" id="sv-water">&lt;40 ppm OiW</text>
+          </g>
+          <line x1="744" y1="527" x2="778" y2="527" stroke="url(#watG)" stroke-width="2.5" marker-end="url(#arrW)" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- TREATED PW TANK -->
+          <g class="svg-node" onclick="switchTab('water')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="780" y="485" width="78" height="90" rx="5" fill="url(#vesG)" stroke="#00e676" stroke-width="1.8"/>
+            <rect x="788" y="519" width="62" height="49" rx="3" fill="#003366" opacity="0.5"/>
+            <line x1="780" y1="535" x2="858" y2="535" stroke="#00e676" stroke-width="1" opacity="0.5"/>
+            <text x="819" y="585" text-anchor="middle" fill="#00e676" font-size="8.5" font-weight="700">TREATED</text>
+            <text x="819" y="597" text-anchor="middle" fill="#00e676" font-size="8.5" font-weight="700">PW TANK</text>
+          </g>
+          <line x1="858" y1="527" x2="892" y2="527" stroke="url(#watG)" stroke-width="2.5" marker-end="url(#arrW)" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- WATER INJECTION PUMPS -->
+          <g class="svg-node" onclick="switchTab('water')" style="cursor:pointer;" filter="url(#dropshadow)">
+            <rect x="894" y="493" width="162" height="70" rx="7" fill="url(#vesG)" stroke="#00e676" stroke-width="2.2"/>
+            <circle cx="930" cy="528" r="16" fill="none" stroke="#00e676" stroke-width="2"/>
+            <text x="930" y="534" text-anchor="middle" fill="#00e676" font-size="12" font-weight="800">P</text>
+            <text x="1004" y="514" text-anchor="middle" fill="#00e676" font-size="9.5" font-weight="700">WATER INJ.</text>
+            <text x="1004" y="528" text-anchor="middle" fill="#00e676" font-size="9.5" font-weight="700">PUMPS</text>
+            <text x="1004" y="542" text-anchor="middle" fill="#888"   font-size="8">Zubair Reservoir</text>
+          </g>
+          <!-- injection -> wells -->
+          <line x1="975" y1="493" x2="975" y2="444" stroke="url(#rivG)" stroke-width="2.5" marker-end="url(#arrRup)"/>
+          <rect x="926" y="418" width="98" height="28" rx="5" fill="rgba(0,77,34,0.3)" stroke="#00e676" stroke-width="1.5"/>
+          <text x="975" y="432" text-anchor="middle" fill="#00e676" font-size="9" font-weight="700">INJECTION WELLS</text>
+          <text x="975" y="445" text-anchor="middle" fill="#888" font-size="7.5">Zubair Reservoir</text>
+
+          <!-- WASH WATER TANK (River Water) -->
+          <g class="svg-node" onclick="switchTab('water')" style="cursor:pointer;">
+            <rect x="1098" y="493" width="90" height="70" rx="5" fill="url(#vesG)" stroke="#00e676" stroke-width="1.5"/>
+            <rect x="1106" y="519" width="74" height="37" rx="3" fill="#003d20" opacity="0.6"/>
+            <text x="1143" y="511" text-anchor="middle" fill="#00e676" font-size="9" font-weight="700">WASH WATER</text>
+            <text x="1143" y="524" text-anchor="middle" fill="#00e676" font-size="9" font-weight="700">TANK</text>
+            <text x="1143" y="537" text-anchor="middle" fill="#aaa"  font-size="8">+ River Water</text>
+          </g>
+          <line x1="1143" y1="468" x2="1143" y2="493" stroke="url(#rivG)" stroke-width="1.8" marker-end="url(#arrWdn)"/>
+          <text x="1143" y="464" text-anchor="middle" fill="#00e676" font-size="8">River Water &#8595;</text>
+
           <!-- Legend -->
-          <g transform="translate(20,470)">
-            <rect width="14" height="8" rx="2" fill="#a05a00"/><text x="20" y="8" fill="#7a8aaa" font-size="9" data-i18n="svg_leg_oil">Oil Flow</text>
-            <rect x="90" width="14" height="8" rx="2" fill="#ff4444"/><text x="110" y="8" fill="#7a8aaa" font-size="9" data-i18n="svg_leg_gas">Gas Flow</text>
-            <rect x="180" width="14" height="8" rx="2" fill="#0088cc"/><text x="200" y="8" fill="#7a8aaa" font-size="9" data-i18n="svg_leg_water">Water Flow</text>
-            <rect x="290" width="14" height="8" rx="2" fill="#e91e63"/><text x="310" y="8" fill="#7a8aaa" font-size="9" data-i18n="svg_leg_chem">Chemical Inj.</text>
+          <g transform="translate(36,610)">
+            <rect width="12" height="6" rx="2" fill="#ffab40"/><text x="17" y="6.5" fill="#7a8aaa" font-size="8.5" data-i18n="svg_leg_oil">Oil Flow</text>
+            <rect x="80"  width="12" height="6" rx="2" fill="#ff5252"/><text x="97"  y="6.5" fill="#7a8aaa" font-size="8.5" data-i18n="svg_leg_gas">Gas Flow</text>
+            <rect x="162" width="12" height="6" rx="2" fill="#29b6f6"/><text x="179" y="6.5" fill="#7a8aaa" font-size="8.5" data-i18n="svg_leg_water">Produced Water</text>
+            <rect x="284" width="12" height="6" rx="2" fill="#00e676"/><text x="301" y="6.5" fill="#7a8aaa" font-size="8.5" data-i18n="svg_leg_chem">Wash / River Water</text>
+            <text x="440" y="6.5" fill="#7a8aaa" font-size="8.5">&#128433;&#65039; Click any block to open its calculator</text>
           </g>
         </svg>
       </div>
       <!-- KPI Summary -->
       <div class="kpi-row" id="overviewKPI"></div>
     </div>
+
 
     <!-- ===== SEPARATOR CALCULATOR TAB ===== -->
     <div class="tab-panel" id="tab-separator">
@@ -635,6 +874,769 @@
       <div class="success-banner" data-i18n="success_msg">✅ All systems are stable. Mass balance and chemical injection rates are automatically updated based on live input.</div>
     </div>
 
+    <!-- ===== SEPARATOR DESIGN TAB ===== -->
+    <div class="tab-panel" id="tab-sepdesign">
+      <div class="panel-nav">
+        <button class="nav-arrow" onclick="histBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="nav-arrow" onclick="histFwd()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="save-btn" onclick="savePanel('tab-sepdesign')">💾 Save</button>
+      </div>
+
+      <!-- Header -->
+      <div class="sd-header">
+        <div class="sd-header-left">
+          <div class="sd-header-icon">⚗️</div>
+          <div>
+            <div class="panel-title" style="margin-bottom:4px">Separator Design &amp; Sizing Tool</div>
+            <p class="panel-desc" style="margin:0">API 12J &bull; ASME Section VIII &bull; GPSA &bull; J12 — Full engineering design, stage selection &amp; mechanical sizing</p>
+          </div>
+        </div>
+        <div class="sd-std-badges">
+          <span class="sd-std-badge" style="background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7">📘 API 12J</span>
+          <span class="sd-std-badge" style="background:#e3f2fd;color:#1565c0;border:1px solid #90caf9">🔩 ASME Sec VIII</span>
+          <span class="sd-std-badge" style="background:#fce4ec;color:#880e4f;border:1px solid #f48fb1">📋 GPSA</span>
+          <span class="sd-std-badge" style="background:#f3e5f5;color:#4a148c;border:1px solid #ce93d8">📐 J12</span>
+        </div>
+      </div>
+
+      <!-- TOP SECTION: Configuration + Design Summary -->
+      <div class="sd-top-grid">
+
+        <!-- Col 1: Separator Type & Phase -->
+        <div class="calc-card sd-config-card">
+          <div class="card-head" style="background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff;border:none;margin:-22px -22px 18px">🔧 Separator Configuration</div>
+
+          <div class="sd-type-selector">
+            <label class="sd-type-opt" id="sdtype-H">
+              <input type="radio" name="sd-type" id="sd-type" value="H" checked onchange="document.getElementById('sd-type').value=this.value">
+              <div class="sd-type-card">
+                <div class="sd-type-svg">
+                  <svg viewBox="0 0 80 40" width="70" height="35"><rect x="2" y="8" width="76" height="24" rx="12" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/><rect x="10" y="14" width="60" height="5" rx="2" fill="#c8860a" opacity="0.7"/><rect x="10" y="21" width="60" height="5" rx="2" fill="#4499cc" opacity="0.7"/><text x="40" y="5" text-anchor="middle" fill="#1565c0" font-size="6" font-weight="bold" font-family="Inter">GAS</text></svg>
+                </div>
+                <span class="sd-type-name">Horizontal</span>
+                <span class="sd-type-sub">L = 3D to 5D</span>
+              </div>
+            </label>
+            <label class="sd-type-opt" id="sdtype-V">
+              <input type="radio" name="sd-type" value="V" onchange="document.getElementById('sd-type').value=this.value">
+              <div class="sd-type-card">
+                <div class="sd-type-svg">
+                  <svg viewBox="0 0 40 80" width="35" height="70"><rect x="8" y="2" width="24" height="76" rx="12" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/><rect x="10" y="4" width="20" height="28" rx="4" fill="#ffe566" opacity="0.7"/><rect x="10" y="34" width="20" height="22" rx="2" fill="#c8860a" opacity="0.8"/><rect x="10" y="58" width="20" height="18" rx="2" fill="#4499cc" opacity="0.8"/></svg>
+                </div>
+                <span class="sd-type-name">Vertical</span>
+                <span class="sd-type-sub">H = 2D to 4D</span>
+              </div>
+            </label>
+            <label class="sd-type-opt" id="sdtype-S">
+              <input type="radio" name="sd-type" value="S" onchange="document.getElementById('sd-type').value=this.value">
+              <div class="sd-type-card">
+                <div class="sd-type-svg">
+                  <svg viewBox="0 0 60 60" width="50" height="50"><circle cx="30" cy="30" r="26" fill="#fce4ec" stroke="#880e4f" stroke-width="2"/><ellipse cx="30" cy="38" rx="22" ry="12" fill="#c8860a" opacity="0.7"/><text x="30" y="22" text-anchor="middle" fill="#880e4f" font-size="7" font-weight="bold" font-family="Inter">GAS</text></svg>
+                </div>
+                <span class="sd-type-name">Spherical</span>
+                <span class="sd-type-sub">Low capacity</span>
+              </div>
+            </label>
+          </div>
+
+          <div style="margin-top:18px">
+            <label class="sd-field-label">Separation Phase</label>
+            <select id="sd-phase" class="sd-select">
+              <option value="3">3-Phase (Gas / Oil / Water)</option>
+              <option value="2">2-Phase (Gas / Liquid)</option>
+            </select>
+          </div>
+
+          <div style="margin-top:14px">
+            <label class="sd-field-label">Shell Material</label>
+            <select id="sd-material" class="sd-select" onchange="sdUpdateMaterial()">
+              <option value="CS-A516-70">Carbon Steel — ASTM A516 Gr.70</option>
+              <option value="SS-304">Stainless Steel — SS 304</option>
+              <option value="SS-316">Stainless Steel — SS 316</option>
+              <option value="CS-A106">Carbon Steel — ASTM A106</option>
+              <option value="Duplex-2205">Duplex Stainless — 2205</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Col 2: Design Summary (populated by JS) -->
+        <div class="calc-card sd-summary-card">
+          <div class="card-head" style="background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;border:none;margin:-22px -22px 18px">📊 Design Recommendation</div>
+          <div id="sd-summary"><div class="sd-placeholder">⚡ Enter parameters and click <strong>Calculate</strong> to see recommendations</div></div>
+        </div>
+
+      </div>
+
+      <!-- MIDDLE SECTION: All Inputs -->
+      <div class="sd-inputs-grid">
+
+        <!-- Operating Conditions -->
+        <div class="calc-card">
+          <div class="card-head blue">⚙️ Operating Conditions</div>
+          <div class="input-group">
+            <label>Operating Pressure <input type="number" id="sd-P" value="150" step="5"> <span>psig</span></label>
+            <label>Operating Temperature <input type="number" id="sd-T" value="120" step="1"> <span>°F</span></label>
+            <label>Oil Flow Rate <input type="number" id="sd-Qo" value="25000" step="100"> <span>bpd</span></label>
+            <label>Water Flow Rate <input type="number" id="sd-Qw" value="10000" step="100"> <span>bpd</span></label>
+            <label>Gas Flow Rate <input type="number" id="sd-Qg" value="50" step="0.5"> <span>MMSCFD</span></label>
+          </div>
+        </div>
+
+        <!-- Fluid Properties -->
+        <div class="calc-card">
+          <div class="card-head orange">🛢️ Fluid Properties</div>
+          <div class="input-group">
+            <label>Oil API Gravity <input type="number" id="sd-API" value="32" step="0.5"> <span>°API</span></label>
+            <label>Gas Specific Gravity <input type="number" id="sd-SGg" value="0.75" step="0.01"> <span>—</span></label>
+            <label>Oil Viscosity (μ) <input type="number" id="sd-muO" value="3.5" step="0.1"> <span>cp</span></label>
+            <label>Droplet Diameter <input type="number" id="sd-dp" value="150" step="10"> <span>μm</span></label>
+            <label>K Factor (Souders-Brown) <input type="number" id="sd-K" value="0.35" step="0.01"> <span>—</span></label>
+          </div>
+        </div>
+
+        <!-- Retention Times -->
+        <div class="calc-card">
+          <div class="card-head purple">⏱️ Retention Times (API 12J)</div>
+          <div class="input-group">
+            <label>Oil Retention Time <input type="number" id="sd-tro" value="3" step="0.5"> <span>min</span></label>
+            <label>Water Retention Time <input type="number" id="sd-trw" value="3" step="0.5"> <span>min</span></label>
+          </div>
+          <div class="sd-ref-box">
+            <div class="sd-ref-title">📋 API 12J Reference Values</div>
+            <div class="sd-ref-row"><span>Light crude (&gt;35° API)</span><span>1–2 min</span></div>
+            <div class="sd-ref-row"><span>Medium crude (25–35°)</span><span>2–4 min</span></div>
+            <div class="sd-ref-row"><span>Heavy crude (&lt;25° API)</span><span>5–10 min</span></div>
+            <div class="sd-ref-row"><span>Water (clean)</span><span>3–5 min</span></div>
+            <div class="sd-ref-row"><span>Water (emulsion)</span><span>5–15 min</span></div>
+          </div>
+        </div>
+
+        <!-- ASME Mechanical -->
+        <div class="calc-card">
+          <div class="card-head" style="background:rgba(136,14,79,0.08);color:#880e4f;border-bottom:1px solid rgba(136,14,79,0.2)">🔩 ASME Section VIII — Mechanical</div>
+          <div class="input-group">
+            <label>Allowable Stress (S) <input type="number" id="sd-Sallow" value="17500" step="100"> <span>psi</span></label>
+            <label>Weld Efficiency (E) <input type="number" id="sd-Je" value="1.0" step="0.05" min="0.6" max="1.0"> <span>—</span></label>
+            <label>Corrosion Allowance <input type="number" id="sd-corr" value="0.125" step="0.0625"> <span>in</span></label>
+          </div>
+          <div class="sd-ref-box" style="margin-top:12px">
+            <div class="sd-ref-title">🔩 Typical Allowable Stress (ASME)</div>
+            <div class="sd-ref-row"><span>CS A516-70</span><span>17,500 psi</span></div>
+            <div class="sd-ref-row"><span>SS 304/316</span><span>16,700 psi</span></div>
+            <div class="sd-ref-row"><span>Duplex 2205</span><span>20,000 psi</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CALCULATE BUTTON -->
+      <button class="sd-calc-btn" onclick="calcSeparatorDesign()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Calculate Separator Design
+        <span style="font-size:11px;opacity:0.85;font-weight:400">(API 12J + ASME Sec VIII)</span>
+      </button>
+
+      <!-- RESULTS SECTION -->
+      <div class="sd-results-grid">
+
+        <!-- Fluid Results -->
+        <div class="calc-card">
+          <div class="card-head green">🧪 Fluid Properties</div>
+          <div id="sd-fluid-results" class="results-grid"><div class="sd-placeholder">Run calculation first</div></div>
+        </div>
+
+        <!-- Gas Sizing -->
+        <div class="calc-card">
+          <div class="card-head blue">💨 Gas Sizing — Souders-Brown &amp; Stokes</div>
+          <div id="sd-gas-results" class="results-grid"><div class="sd-placeholder">Run calculation first</div></div>
+        </div>
+
+        <!-- Vessel Dimensions -->
+        <div class="calc-card">
+          <div class="card-head orange">📐 Vessel Dimensions</div>
+          <div id="sd-dim-results" class="results-grid"><div class="sd-placeholder">Run calculation first</div></div>
+        </div>
+
+        <!-- ASME Mechanical Results -->
+        <div class="calc-card">
+          <div class="card-head" style="background:rgba(136,14,79,0.08);color:#880e4f;border-bottom:1px solid rgba(136,14,79,0.2)">🔩 ASME Mechanical</div>
+          <div id="sd-mech-results" class="results-grid"><div class="sd-placeholder">Run calculation first</div></div>
+        </div>
+
+        <!-- Nozzles & Safety -->
+        <div class="calc-card">
+          <div class="card-head" style="background:rgba(230,74,25,0.08);color:#bf360c;border-bottom:1px solid rgba(230,74,25,0.2)">🔧 Nozzles &amp; Safety (API 520)</div>
+          <div id="sd-nozz-results" class="results-grid"><div class="sd-placeholder">Run calculation first</div></div>
+        </div>
+
+        <!-- Vessel Sketch -->
+        <div class="calc-card sd-sketch-card">
+          <div class="card-head" style="background:linear-gradient(135deg,#263238,#37474f);color:#eceff1;border:none;margin:-22px -22px 18px">🖼️ Vessel Cross-Section Sketch</div>
+          <div id="sd-sketch" class="sd-sketch-box">
+            <div class="sd-placeholder" style="padding:60px 20px">Run calculation to generate sketch</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- STAGES COMPARISON CHART -->
+      <div class="chart-box" style="margin-top:4px">
+        <div class="chart-title">📊 Stage Count vs Separation Efficiency — API 12J</div>
+        <canvas id="sd-stages-chart" style="max-height:300px"></canvas>
+      </div>
+
+      <!-- STANDARDS REFERENCE TABLE -->
+      <div class="calc-card" style="margin-top:20px">
+        <div class="card-head" style="background:linear-gradient(135deg,#1a237e,#283593);color:#fff;border:none;margin:-22px -22px 18px">📚 Engineering Standards Reference</div>
+        <div class="table-wrap" style="margin:0">
+          <table class="dtable">
+            <thead><tr><th style="text-align:left">Standard</th><th style="text-align:left">Scope</th><th>Key Parameter</th><th>Typical Range</th></tr></thead>
+            <tbody>
+              <tr><td style="color:#1565c0;font-weight:700">API 12J</td><td style="text-align:left">Oil/Gas Separator Design</td><td>Retention Time</td><td>1 – 15 min</td></tr>
+              <tr><td style="color:#1565c0;font-weight:700">API 12J</td><td style="text-align:left">Souders-Brown Criterion</td><td>K Factor</td><td>0.12 – 0.50 ft/s</td></tr>
+              <tr><td style="color:#2e7d32;font-weight:700">ASME Sec VIII Div 1</td><td style="text-align:left">Pressure Vessel Design</td><td>Shell Thickness</td><td>t = PD/(2SE-1.2P)+CA</td></tr>
+              <tr><td style="color:#2e7d32;font-weight:700">ASME Sec VIII</td><td style="text-align:left">Weld Joint Efficiency</td><td>E Factor</td><td>0.70 – 1.00</td></tr>
+              <tr><td style="color:#880e4f;font-weight:700">GPSA</td><td style="text-align:left">Gas Processing Sizing</td><td>Stokes' Law</td><td>dp &gt; 100 μm</td></tr>
+              <tr><td style="color:#880e4f;font-weight:700">GPSA Sec 7</td><td style="text-align:left">Phase Envelope</td><td>L/D Ratio</td><td>2.5 – 5.0</td></tr>
+              <tr><td style="color:#4a148c;font-weight:700">API 520/521</td><td style="text-align:left">Relief Valve Sizing</td><td>Fire Case Load</td><td>21,000 × F × A^0.82</td></tr>
+              <tr><td style="color:#4a148c;font-weight:700">API 14E</td><td style="text-align:left">Nozzle Velocity</td><td>Gas Nozzle</td><td>&lt; 60 ft/s</td></tr>
+              <tr><td style="color:#e65100;font-weight:700">API 14E</td><td style="text-align:left">Erosional Velocity</td><td>Liquid Nozzle</td><td>&lt; 3 ft/s</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <!-- ===== END SEPARATOR DESIGN TAB ===== -->
+
+    <!-- ===== HAMMAR IPF PFD TAB ===== -->
+    <div class="tab-panel" id="tab-hammar-pfd">
+      <div class="panel-nav">
+        <button class="nav-arrow" onclick="histBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="nav-arrow" onclick="histFwd()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="save-btn" onclick="savePanel('tab-hammar-pfd')">💾 Save</button>
+      </div>
+      <div class="panel-title">🗺️ Hammar IPF — Simplified Process Flow Diagram (PFD)</div>
+      <p class="panel-desc">Figure 1 — Weatherford O&amp;M Manual Vol.1, Rev.00 &nbsp;|&nbsp; 🖱️ Click any equipment block to view full technical details</p>
+
+      <!-- Legend Bar -->
+      <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:center;margin-bottom:14px;padding:10px 18px;background:rgba(0,0,0,0.2);border-radius:10px;border:1px solid rgba(255,255,255,0.07);">
+        <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#ccc;font-weight:500;"><span style="width:32px;height:5px;background:linear-gradient(90deg,#8b3a00,#ffab40);border-radius:3px;display:inline-block;"></span>Crude / Oil</span>
+        <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#ccc;font-weight:500;"><span style="width:32px;height:5px;background:linear-gradient(90deg,#7a0000,#ff5252);border-radius:3px;display:inline-block;"></span>Gas</span>
+        <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#ccc;font-weight:500;"><span style="width:32px;height:5px;background:linear-gradient(90deg,#003366,#29b6f6);border-radius:3px;display:inline-block;"></span>Produced Water</span>
+        <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#ccc;font-weight:500;"><span style="width:32px;height:5px;background:linear-gradient(90deg,#005c2e,#00e676);border-radius:3px;display:inline-block;"></span>Wash / River Water</span>
+        <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#888;">🖱️ Click any block for details</span>
+      </div>
+
+      <!-- Main PFD — scrollable container -->
+      <div style="width:100%;overflow-x:auto;overflow-y:auto;background:rgba(0,5,15,0.5);border-radius:12px;border:1px solid rgba(0,240,255,0.1);padding:8px;">
+        <svg id="hammarPFD" viewBox="0 0 1600 950" xmlns="http://www.w3.org/2000/svg"
+             style="width:100%;min-width:1100px;display:block;font-family:'Inter',sans-serif;">
+          <defs>
+            <linearGradient id="pfd-oilG"  x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8b3a00"/><stop offset="100%" stop-color="#ffab40"/></linearGradient>
+            <linearGradient id="pfd-gasG"  x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#7a0000"/><stop offset="100%" stop-color="#ff5252"/></linearGradient>
+            <linearGradient id="pfd-watG"  x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#003366"/><stop offset="100%" stop-color="#29b6f6"/></linearGradient>
+            <linearGradient id="pfd-rivG"  x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#005c2e"/><stop offset="100%" stop-color="#00e676"/></linearGradient>
+            <linearGradient id="pfd-eqBg"  x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1e3048"/><stop offset="100%" stop-color="#0c1a28"/></linearGradient>
+            <linearGradient id="pfd-zonGas" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(180,40,40,0.07)"/><stop offset="100%" stop-color="rgba(180,40,40,0)"/></linearGradient>
+            <linearGradient id="pfd-zonOil" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(200,120,0,0.06)"/><stop offset="100%" stop-color="rgba(200,120,0,0)"/></linearGradient>
+            <linearGradient id="pfd-zonWat" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,100,200,0.07)"/><stop offset="100%" stop-color="rgba(0,100,200,0)"/></linearGradient>
+            <filter id="pfd-glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="pfd-shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.6)"/></filter>
+            <!-- Arrows -->
+            <marker id="pfd-arrO" viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#ffab40"/></marker>
+            <marker id="pfd-arrG" viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#ff5252"/></marker>
+            <marker id="pfd-arrW" viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#29b6f6"/></marker>
+            <marker id="pfd-arrR" viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,3 L0,6z" fill="#00e676"/></marker>
+            <marker id="pfd-arrGdn" viewBox="0 0 6 10" refX="3" refY="9" markerWidth="6" markerHeight="8" orient="auto"><path d="M0,0 L3,10 L6,0z" fill="#ff5252"/></marker>
+            <marker id="pfd-arrWdn" viewBox="0 0 6 10" refX="3" refY="9" markerWidth="6" markerHeight="8" orient="auto"><path d="M0,0 L3,10 L6,0z" fill="#29b6f6"/></marker>
+            <marker id="pfd-arrRup" viewBox="0 0 6 10" refX="3" refY="1" markerWidth="6" markerHeight="8" orient="auto"><path d="M0,10 L3,0 L6,10z" fill="#00e676"/></marker>
+          </defs>
+
+          <!-- ░░░ BACKGROUND ░░░ -->
+          <rect width="1600" height="950" fill="#060e1a" rx="12"/>
+          <pattern id="pfd-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(0,200,255,0.025)" stroke-width="0.5"/>
+          </pattern>
+          <rect width="1600" height="950" fill="url(#pfd-grid)" rx="12"/>
+
+          <!-- ░░░ ZONE BACKGROUNDS ░░░ -->
+          <rect x="10" y="58"  width="1580" height="250" rx="8" fill="url(#pfd-zonGas)"  opacity="0.8"/>
+          <rect x="10" y="318" width="1580" height="280" rx="8" fill="url(#pfd-zonOil)"  opacity="0.8"/>
+          <rect x="10" y="608" width="1580" height="300" rx="8" fill="url(#pfd-zonWat)"  opacity="0.8"/>
+
+          <!-- ░░░ ZONE DIVIDERS ░░░ -->
+          <line x1="18" y1="310" x2="1582" y2="310" stroke="rgba(255,171,0,0.18)" stroke-width="1.2" stroke-dasharray="8,5"/>
+          <line x1="18" y1="600" x2="1582" y2="600" stroke="rgba(0,150,255,0.18)" stroke-width="1.2" stroke-dasharray="8,5"/>
+
+          <!-- ░░░ ZONE LABELS (vertical) ░░░ -->
+          <rect x="10" y="58"  width="28" height="250" rx="4" fill="rgba(255,50,50,0.1)"/>
+          <rect x="10" y="318" width="28" height="280" rx="4" fill="rgba(255,150,0,0.1)"/>
+          <rect x="10" y="608" width="28" height="300" rx="4" fill="rgba(0,150,255,0.1)"/>
+          <text x="24" y="200"  text-anchor="middle" fill="rgba(255,100,100,0.8)" font-size="11" font-weight="700" letter-spacing="3" transform="rotate(-90,24,200)">GAS TRAIN</text>
+          <text x="24" y="465"  text-anchor="middle" fill="rgba(255,171,0,0.8)"  font-size="11" font-weight="700" letter-spacing="3" transform="rotate(-90,24,465)">OIL PROCESS</text>
+          <text x="24" y="762"  text-anchor="middle" fill="rgba(41,182,246,0.8)" font-size="11" font-weight="700" letter-spacing="3" transform="rotate(-90,24,762)">WATER SYSTEM</text>
+
+          <!-- ░░░ TITLE BAR ░░░ -->
+          <rect x="10" y="10" width="1580" height="44" rx="7" fill="rgba(0,20,45,0.85)" stroke="rgba(0,240,255,0.25)" stroke-width="1.2"/>
+          <text x="800" y="37" text-anchor="middle" fill="#00f0ff" font-size="15" font-weight="800" letter-spacing="2.5">HAMMAR IPF — SIMPLIFIED PROCESS FLOW DIAGRAM  (Figure 1 · Weatherford O&amp;M Vol.1 · Rev.00)</text>
+
+          <!-- ======================================================
+               ROW 1: GAS TRAIN  (Y centre = 175)
+               Columns: 260 → 450 → 640 → 830 → 1020 → 1220 → 1470
+               ====================================================== -->
+
+          <!-- Flare / Fuel Gas header line -->
+          <line x1="48"  y1="100" x2="1540" y2="100" stroke="rgba(255,82,82,0.2)" stroke-width="1" stroke-dasharray="6,6"/>
+          <text x="55" y="96" fill="rgba(255,82,82,0.6)" font-size="10" font-weight="600">HP Fuel Gas Supply  /  HP Flare  /  LP Flare  /  LP Fuel Gas System</text>
+
+          <!-- LP COMPRESSOR (x=210, y-centre=195) -->
+          <g class="pfd-node" onclick="pfdShowDetail('lp-comp')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="210" y="120" width="140" height="90" rx="8" fill="url(#pfd-eqBg)" stroke="#ff5252" stroke-width="2"/>
+            <polygon points="230,155 230,185 258,170" fill="none" stroke="#ff5252" stroke-width="2"/>
+            <circle cx="285" cy="170" r="16" fill="none" stroke="#ff5252" stroke-width="1.8"/>
+            <line x1="269" y1="170" x2="301" y2="170" stroke="#ff5252" stroke-width="1.2"/>
+            <text x="280" y="228" text-anchor="middle" fill="#ff5252" font-size="11" font-weight="700">LP COMPRESSOR</text>
+            <text x="280" y="242" text-anchor="middle" fill="#888" font-size="9.5">1st Stage Gas</text>
+          </g>
+          <!-- LP → Flare tap -->
+          <line x1="280" y1="120" x2="280" y2="100" stroke="#ff5252" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.7"/>
+
+          <!-- LP COMP → HP COMP -->
+          <line x1="350" y1="165" x2="430" y2="165" stroke="url(#pfd-gasG)" stroke-width="3" marker-end="url(#pfd-arrG)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+
+          <!-- HP COMPRESSOR (x=430, y-centre=195) -->
+          <g class="pfd-node" onclick="pfdShowDetail('hp-comp')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="430" y="120" width="140" height="90" rx="8" fill="url(#pfd-eqBg)" stroke="#ff5252" stroke-width="2"/>
+            <polygon points="450,155 450,185 478,170" fill="none" stroke="#ff5252" stroke-width="2"/>
+            <circle cx="505" cy="170" r="16" fill="none" stroke="#ff5252" stroke-width="1.8"/>
+            <line x1="489" y1="170" x2="521" y2="170" stroke="#ff5252" stroke-width="1.2"/>
+            <text x="500" y="228" text-anchor="middle" fill="#ff5252" font-size="11" font-weight="700">HP COMPRESSOR</text>
+            <text x="500" y="242" text-anchor="middle" fill="#888" font-size="9.5">2nd Stage Gas</text>
+          </g>
+          <!-- HP → Flare tap -->
+          <line x1="500" y1="120" x2="500" y2="100" stroke="#ff5252" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.7"/>
+
+          <!-- HP COMP → CRUDE/CRUDE EXCHANGER -->
+          <line x1="570" y1="165" x2="650" y2="165" stroke="url(#pfd-gasG)" stroke-width="3" marker-end="url(#pfd-arrG)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+
+          <!-- CRUDE/CRUDE EXCHANGER (x=650, y-centre=195) -->
+          <g class="pfd-node" onclick="pfdShowDetail('exchanger')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="650" y="120" width="155" height="90" rx="8" fill="url(#pfd-eqBg)" stroke="#ffab40" stroke-width="2"/>
+            <!-- HEX symbol -->
+            <path d="M675,140 Q692,168 709,140" fill="none" stroke="#ffab40" stroke-width="2"/>
+            <path d="M709,140 Q726,168 743,140" fill="none" stroke="#ffab40" stroke-width="2"/>
+            <path d="M675,190 Q692,162 709,190" fill="none" stroke="#ffab40" stroke-width="1.5" opacity="0.5"/>
+            <path d="M709,190 Q726,162 743,190" fill="none" stroke="#ffab40" stroke-width="1.5" opacity="0.5"/>
+            <text x="727" y="228" text-anchor="middle" fill="#ffab40" font-size="11" font-weight="700">CRUDE / CRUDE</text>
+            <text x="727" y="242" text-anchor="middle" fill="#ffab40" font-size="11" font-weight="700">EXCHANGER</text>
+          </g>
+
+          <!-- EXCHANGER → CRUDE OIL HEATER -->
+          <line x1="805" y1="165" x2="885" y2="165" stroke="url(#pfd-gasG)" stroke-width="3" marker-end="url(#pfd-arrG)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+
+          <!-- CRUDE OIL HEATER (x=885, y-centre=195) -->
+          <g class="pfd-node" onclick="pfdShowDetail('heater')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="885" y="120" width="145" height="90" rx="8" fill="url(#pfd-eqBg)" stroke="#ff9800" stroke-width="2"/>
+            <!-- flame -->
+            <path d="M928,195 Q928,168 940,155 Q940,178 952,165 Q952,195 928,195" fill="none" stroke="#ff9800" stroke-width="2.2"/>
+            <path d="M935,190 Q935,175 942,165" fill="none" stroke="#ffcc02" stroke-width="1.5" opacity="0.7"/>
+            <text x="957" y="228" text-anchor="middle" fill="#ff9800" font-size="11" font-weight="700">CRUDE OIL</text>
+            <text x="957" y="242" text-anchor="middle" fill="#ff9800" font-size="11" font-weight="700">HEATER</text>
+          </g>
+          <!-- Heater → Flare tap -->
+          <line x1="957" y1="120" x2="957" y2="100" stroke="#ff9800" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.6"/>
+
+          <!-- HEATER → GAS EXPORT -->
+          <line x1="1030" y1="165" x2="1120" y2="165" stroke="url(#pfd-gasG)" stroke-width="3.5" marker-end="url(#pfd-arrG)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+
+          <!-- GAS EXPORT PIPELINE (x=1120, y-centre=195) -->
+          <g class="pfd-node" onclick="pfdShowDetail('gas-export')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="1120" y="110" width="180" height="110" rx="8" fill="url(#pfd-eqBg)" stroke="#ff5252" stroke-width="2.5"/>
+            <text x="1210" y="152" text-anchor="middle" fill="#ff5252" font-size="13" font-weight="800">GAS EXPORT</text>
+            <text x="1210" y="170" text-anchor="middle" fill="#ff5252" font-size="13" font-weight="800">PIPELINE</text>
+            <text x="1210" y="192" text-anchor="middle" fill="#aaa"  font-size="10">136.8 MMSCFD</text>
+            <text x="1210" y="206" text-anchor="middle" fill="#aaa"  font-size="10">Sweet — No H₂S</text>
+          </g>
+          <!-- Gas export exit arrow -->
+          <line x1="1300" y1="165" x2="1360" y2="165" stroke="url(#pfd-gasG)" stroke-width="3.5" marker-end="url(#pfd-arrG)"/>
+          <line x1="1360" y1="140" x2="1360" y2="200" stroke="#ff5252" stroke-width="4" opacity="0.9"/>
+          <text x="1380" y="158" fill="#ff5252" font-size="10.5" font-weight="700">EXPORT →</text>
+
+          <!-- From Condensate Collection Header (dashed input from top-right) -->
+          <line x1="1210" y1="110" x2="1210" y2="80" stroke="#ff5252" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.6"/>
+          <text x="1210" y="75" text-anchor="middle" fill="rgba(255,82,82,0.7)" font-size="9">From Condensate Header</text>
+
+          <!-- ======================================================
+               ROW 2: OIL PROCESS  (Y centre = 450)
+               ====================================================== -->
+
+          <!-- PRODUCTION FLUIDS INLET (x=48, y-centre=450) -->
+          <g class="pfd-node" onclick="pfdShowDetail('inlet')" style="cursor:pointer;" filter="url(#pfd-glow)">
+            <rect x="48" y="390" width="130" height="90" rx="8" fill="url(#pfd-eqBg)" stroke="#ffab40" stroke-width="2.2"/>
+            <text x="113" y="422" text-anchor="middle" fill="#ffab40" font-size="12" font-weight="800">PRODUCTION</text>
+            <text x="113" y="438" text-anchor="middle" fill="#ffab40" font-size="12" font-weight="800">FLUIDS</text>
+            <text x="113" y="454" text-anchor="middle" fill="#aaa"  font-size="10">from DGS Wells</text>
+            <text x="113" y="470" text-anchor="middle" fill="#00e676" font-size="10" font-weight="700">▶ 129,307 bpd</text>
+          </g>
+
+          <!-- INLET → 1ST SEP -->
+          <line x1="178" y1="435" x2="218" y2="435" stroke="url(#pfd-oilG)" stroke-width="3.5" marker-end="url(#pfd-arrO)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- 1ST STAGE SEPARATOR (ellipse, x=218..388, y-centre=435) -->
+          <g class="pfd-node" onclick="pfdShowDetail('sep1')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="218" y="385" width="170" height="100" rx="50" fill="url(#pfd-eqBg)" stroke="#00e676" stroke-width="2.5"/>
+            <rect x="240" y="403" width="126" height="18" rx="4" fill="#a05a00" opacity="0.5"/>
+            <rect x="240" y="428" width="126" height="18" rx="4" fill="#003366" opacity="0.5"/>
+            <line x1="235" y1="423" x2="381" y2="423" stroke="rgba(0,240,255,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="303" y="505" text-anchor="middle" fill="#00e676" font-size="12" font-weight="700">1st STAGE SEP.</text>
+            <text x="303" y="520" text-anchor="middle" fill="#aaa"   font-size="10">15.2 – 36.6 barg</text>
+          </g>
+
+          <!-- 1ST SEP gas up to LP COMP row -->
+          <line x1="303" y1="385" x2="303" y2="260" stroke="url(#pfd-gasG)" stroke-width="2.5" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+          <line x1="303" y1="260" x2="280" y2="210" stroke="url(#pfd-gasG)" stroke-width="2.5" marker-end="url(#pfd-arrG)" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+          <text x="315" y="325" fill="#ff5252" font-size="9.5" opacity="0.8">Gas ↑</text>
+
+          <!-- 1ST SEP → 2ND SEP oil -->
+          <line x1="388" y1="435" x2="438" y2="435" stroke="url(#pfd-oilG)" stroke-width="3.5" marker-end="url(#pfd-arrO)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- 1ST SEP water down -->
+          <line x1="303" y1="485" x2="303" y2="630" stroke="url(#pfd-watG)" stroke-width="2.5" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+          <text x="315" y="560" fill="#29b6f6" font-size="9.5" opacity="0.8">PW ↓</text>
+
+          <!-- 2ND STAGE SEPARATOR (x=438..608, y-centre=435) -->
+          <g class="pfd-node" onclick="pfdShowDetail('sep2')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="438" y="385" width="170" height="100" rx="50" fill="url(#pfd-eqBg)" stroke="#00e676" stroke-width="2.5"/>
+            <rect x="460" y="403" width="126" height="18" rx="4" fill="#a05a00" opacity="0.5"/>
+            <rect x="460" y="428" width="126" height="18" rx="4" fill="#003366" opacity="0.5"/>
+            <line x1="455" y1="423" x2="601" y2="423" stroke="rgba(0,240,255,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="523" y="505" text-anchor="middle" fill="#00e676" font-size="12" font-weight="700">2nd STAGE SEP.</text>
+            <text x="523" y="520" text-anchor="middle" fill="#aaa"   font-size="10">LP Stage</text>
+          </g>
+
+          <!-- 2ND SEP gas up to LP COMP row -->
+          <line x1="523" y1="385" x2="523" y2="260" stroke="url(#pfd-gasG)" stroke-width="2.5" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+          <line x1="523" y1="260" x2="500" y2="210" stroke="url(#pfd-gasG)" stroke-width="2.5" marker-end="url(#pfd-arrG)" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="0.9s" repeatCount="indefinite"/></line>
+          <text x="535" y="325" fill="#ff5252" font-size="9.5" opacity="0.8">Gas ↑</text>
+
+          <!-- 2ND SEP → RUN DOWN COOLER -->
+          <line x1="608" y1="435" x2="658" y2="435" stroke="url(#pfd-oilG)" stroke-width="3.5" marker-end="url(#pfd-arrO)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- 2ND SEP water down -->
+          <line x1="523" y1="485" x2="523" y2="630" stroke="url(#pfd-watG)" stroke-width="2.5" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+          <text x="535" y="560" fill="#29b6f6" font-size="9.5" opacity="0.8">PW ↓</text>
+
+          <!-- CHARGE PUMPS (below 2nd Sep, above water zone) -->
+          <g class="pfd-node" onclick="pfdShowDetail('charge-pumps')" style="cursor:pointer;">
+            <rect x="453" y="540" width="110" height="52" rx="6" fill="url(#pfd-eqBg)" stroke="#ffab40" stroke-width="1.5"/>
+            <circle cx="478" cy="566" r="13" fill="none" stroke="#ffab40" stroke-width="1.5"/>
+            <text x="478" y="571" text-anchor="middle" fill="#ffab40" font-size="10" font-weight="700">P</text>
+            <text x="530" y="562" text-anchor="middle" fill="#ffab40" font-size="10" font-weight="700">CHARGE</text>
+            <text x="530" y="575" text-anchor="middle" fill="#ffab40" font-size="10" font-weight="700">PUMPS</text>
+          </g>
+
+          <!-- RUN DOWN COOLER (x=658..808, y-centre=435) -->
+          <g class="pfd-node" onclick="pfdShowDetail('run-down-cooler')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="658" y="390" width="155" height="90" rx="8" fill="url(#pfd-eqBg)" stroke="#29b6f6" stroke-width="2"/>
+            <!-- cooler waves -->
+            <path d="M678,418 Q700,440 722,418" fill="none" stroke="#29b6f6" stroke-width="2"/>
+            <path d="M722,418 Q744,440 766,418" fill="none" stroke="#29b6f6" stroke-width="2"/>
+            <path d="M678,445 Q700,423 722,445" fill="none" stroke="#29b6f6" stroke-width="1.4" opacity="0.5"/>
+            <path d="M722,445 Q744,423 766,445" fill="none" stroke="#29b6f6" stroke-width="1.4" opacity="0.5"/>
+            <text x="735" y="503" text-anchor="middle" fill="#29b6f6" font-size="12" font-weight="700">RUN DOWN</text>
+            <text x="735" y="518" text-anchor="middle" fill="#29b6f6" font-size="12" font-weight="700">COOLER</text>
+          </g>
+          <!-- hot crude to exchanger (dashed upward) -->
+          <line x1="735" y1="390" x2="735" y2="300" stroke="url(#pfd-oilG)" stroke-width="1.8" stroke-dasharray="5,4" opacity="0.55"><animate attributeName="stroke-dashoffset" from="9" to="0" dur="1.3s" repeatCount="indefinite"/></line>
+          <line x1="735" y1="300" x2="727" y2="210" stroke="url(#pfd-oilG)" stroke-width="1.8" stroke-dasharray="5,4" opacity="0.55" marker-end="url(#pfd-arrO)"><animate attributeName="stroke-dashoffset" from="9" to="0" dur="1.3s" repeatCount="indefinite"/></line>
+          <text x="750" y="350" fill="rgba(255,171,0,0.5)" font-size="9">Hot crude→HEX</text>
+
+          <!-- RUN DOWN COOLER → DESALTER -->
+          <line x1="813" y1="435" x2="863" y2="435" stroke="url(#pfd-oilG)" stroke-width="3.5" marker-end="url(#pfd-arrO)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- DESALTER (x=863..1043, y-centre=435) -->
+          <g class="pfd-node" onclick="pfdShowDetail('desalter')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="863" y="385" width="180" height="100" rx="50" fill="url(#pfd-eqBg)" stroke="#ffab40" stroke-width="2.5"/>
+            <rect x="887" y="403" width="132" height="18" rx="4" fill="#a05a00" opacity="0.5"/>
+            <rect x="887" y="428" width="132" height="18" rx="4" fill="#003366" opacity="0.5"/>
+            <line x1="882" y1="423" x2="1040" y2="423" stroke="rgba(0,240,255,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+            <!-- electrostatic symbol -->
+            <text x="953" y="418" text-anchor="middle" fill="rgba(255,200,0,0.6)" font-size="9">⚡ ⚡ ⚡</text>
+            <text x="953" y="505" text-anchor="middle" fill="#ffab40" font-size="12" font-weight="700">DESALTER</text>
+            <text x="953" y="520" text-anchor="middle" fill="#aaa"   font-size="10">Electrostatic</text>
+          </g>
+
+          <!-- Wash water into Desalter (from bottom) -->
+          <line x1="953" y1="485" x2="953" y2="630" stroke="url(#pfd-rivG)" stroke-width="2" stroke-dasharray="6,4" opacity="0.7"><animate attributeName="stroke-dashoffset" from="10" to="0" dur="1.4s" repeatCount="indefinite"/></line>
+          <text x="965" y="548" fill="#00e676" font-size="9.5" opacity="0.7">Wash↕</text>
+
+          <!-- DESALTER → DEHYDRATOR -->
+          <line x1="1043" y1="435" x2="1093" y2="435" stroke="url(#pfd-oilG)" stroke-width="3.5" marker-end="url(#pfd-arrO)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- DEHYDRATOR (x=1093..1283, y-centre=435) -->
+          <g class="pfd-node" onclick="pfdShowDetail('dehydrator')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="1093" y="385" width="190" height="100" rx="50" fill="url(#pfd-eqBg)" stroke="#ffab40" stroke-width="2.5"/>
+            <rect x="1117" y="403" width="142" height="18" rx="4" fill="#a05a00" opacity="0.5"/>
+            <rect x="1117" y="428" width="142" height="18" rx="4" fill="#003366" opacity="0.4"/>
+            <line x1="1112" y1="423" x2="1280" y2="423" stroke="rgba(0,240,255,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="1188" y="418" text-anchor="middle" fill="rgba(255,200,0,0.6)" font-size="9">⚡ ⚡ ⚡</text>
+            <text x="1188" y="505" text-anchor="middle" fill="#ffab40" font-size="12" font-weight="700">DEHYDRATOR</text>
+            <text x="1188" y="520" text-anchor="middle" fill="#aaa"   font-size="10">Electrostatic</text>
+          </g>
+
+          <!-- Dehydrator water down -->
+          <line x1="1188" y1="485" x2="1188" y2="630" stroke="url(#pfd-watG)" stroke-width="2.5" stroke-dasharray="7,4"><animate attributeName="stroke-dashoffset" from="11" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+          <text x="1200" y="558" fill="#29b6f6" font-size="9.5" opacity="0.8">PW ↓</text>
+
+          <!-- DEHYDRATOR → CRUDE OIL TANK -->
+          <line x1="1283" y1="435" x2="1353" y2="435" stroke="url(#pfd-oilG)" stroke-width="3.5" marker-end="url(#pfd-arrO)" stroke-dasharray="9,4"><animate attributeName="stroke-dashoffset" from="13" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- CRUDE OIL TANK (x=1355, y-centre=435) -->
+          <g class="pfd-node" onclick="pfdShowDetail('crude-tank')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="1355" y="368" width="100" height="130" rx="6" fill="url(#pfd-eqBg)" stroke="#ffc107" stroke-width="2.2"/>
+            <!-- tank fill -->
+            <rect x="1364" y="418" width="82" height="72" rx="3" fill="#8b3a00" opacity="0.4"/>
+            <line x1="1355" y1="440" x2="1455" y2="440" stroke="#ffc107" stroke-width="1.2" opacity="0.6"/>
+            <!-- floating roof symbol -->
+            <ellipse cx="1405" cy="372" rx="46" ry="8" fill="none" stroke="#ffc107" stroke-width="1.5"/>
+            <text x="1405" y="516" text-anchor="middle" fill="#ffc107" font-size="12" font-weight="700">CRUDE OIL</text>
+            <text x="1405" y="530" text-anchor="middle" fill="#ffc107" font-size="12" font-weight="700">TANK</text>
+            <text x="1405" y="544" text-anchor="middle" fill="#aaa"  font-size="10">On-Spec</text>
+          </g>
+
+          <!-- OFF-SPEC CRUDE TANK (below main tank) -->
+          <g class="pfd-node" onclick="pfdShowDetail('offspec-tank')" style="cursor:pointer;">
+            <rect x="1355" y="560" width="100" height="82" rx="6" fill="url(#pfd-eqBg)" stroke="#ff9800" stroke-width="1.8"/>
+            <rect x="1364" y="578" width="82" height="56" rx="3" fill="#6b3a00" opacity="0.4"/>
+            <text x="1405" y="658" text-anchor="middle" fill="#ff9800" font-size="10.5" font-weight="700">OFF-SPEC</text>
+            <text x="1405" y="671" text-anchor="middle" fill="#ff9800" font-size="10.5" font-weight="700">CRUDE TANK</text>
+          </g>
+
+          <!-- Crude Tank → Crude Export Pumps -->
+          <line x1="1455" y1="420" x2="1505" y2="420" stroke="url(#pfd-oilG)" stroke-width="3" marker-end="url(#pfd-arrO)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></line>
+
+          <!-- CRUDE OIL EXPORT PUMPS -->
+          <g class="pfd-node" onclick="pfdShowDetail('crude-export-pumps')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="1507" y="390" width="82" height="64" rx="6" fill="url(#pfd-eqBg)" stroke="#00e676" stroke-width="2"/>
+            <circle cx="1548" cy="415" r="16" fill="none" stroke="#00e676" stroke-width="1.8"/>
+            <text x="1548" y="420" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">P</text>
+            <text x="1548" y="470" text-anchor="middle" fill="#00e676" font-size="10" font-weight="700">EXPORT</text>
+            <text x="1548" y="483" text-anchor="middle" fill="#00e676" font-size="10" font-weight="700">PUMPS</text>
+          </g>
+          <!-- Export pumps → pipeline (vertical end bar) -->
+          <line x1="1548" y1="390" x2="1548" y2="340" stroke="url(#pfd-oilG)" stroke-width="3.5" marker-end="url(#pfd-arrO)"/>
+          <rect x="1530" y="310" width="120" height="34" rx="5" fill="rgba(139,58,0,0.3)" stroke="#ffab40" stroke-width="1.5"/>
+          <text x="1590" y="332" text-anchor="middle" fill="#ffab40" font-size="10.5" font-weight="700">CRUDE EXPORT PIPELINE →</text>
+
+          <!-- Off-spec pumps -->
+          <g class="pfd-node" onclick="pfdShowDetail('offspec-pumps')" style="cursor:pointer;">
+            <rect x="1507" y="565" width="82" height="58" rx="6" fill="url(#pfd-eqBg)" stroke="#ff9800" stroke-width="1.5"/>
+            <circle cx="1548" cy="590" r="13" fill="none" stroke="#ff9800" stroke-width="1.5"/>
+            <text x="1548" y="595" text-anchor="middle" fill="#ff9800" font-size="10" font-weight="700">P</text>
+            <text x="1548" y="635" text-anchor="middle" fill="#ff9800" font-size="9.5" font-weight="700">OFF-SPEC</text>
+            <text x="1548" y="648" text-anchor="middle" fill="#ff9800" font-size="9.5" font-weight="700">TRANSFER</text>
+          </g>
+          <line x1="1455" y1="595" x2="1505" y2="595" stroke="url(#pfd-oilG)" stroke-width="2" marker-end="url(#pfd-arrO)" stroke-dasharray="6,4"><animate attributeName="stroke-dashoffset" from="10" to="0" dur="1.3s" repeatCount="indefinite"/></line>
+          <!-- Off-spec recycle back -->
+          <path d="M1548,565 L1548,500 L1405,500 L1405,500" fill="none" stroke="url(#pfd-oilG)" stroke-width="1.8" stroke-dasharray="5,4" opacity="0.6" marker-end="url(#pfd-arrO)"/>
+
+          <!-- ======================================================
+               ROW 3: WATER SYSTEM  (Y centre = 760)
+               Columns: 240 → 450 → 660 → 870 → 1080 → 1290 → 1480
+               ====================================================== -->
+
+          <!-- Produced Water Header (horizontal collector) -->
+          <line x1="303" y1="680" x2="1188" y2="680" stroke="url(#pfd-watG)" stroke-width="3" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+          <text x="745" y="672" text-anchor="middle" fill="#29b6f6" font-size="10" font-weight="600" opacity="0.9">— Produced Water Collection Header —</text>
+
+          <!-- Water drop-ins from separators / dehydrator -->
+          <line x1="303"  y1="630" x2="303"  y2="680" stroke="url(#pfd-watG)" stroke-width="2.5" marker-end="url(#pfd-arrWdn)"/>
+          <line x1="523"  y1="630" x2="523"  y2="680" stroke="url(#pfd-watG)" stroke-width="2.5" marker-end="url(#pfd-arrWdn)"/>
+          <line x1="953"  y1="630" x2="953"  y2="680" stroke="url(#pfd-watG)" stroke-width="2.5" marker-end="url(#pfd-arrWdn)"/>
+          <line x1="1188" y1="630" x2="1188" y2="680" stroke="url(#pfd-watG)" stroke-width="2.5" marker-end="url(#pfd-arrWdn)"/>
+
+          <!-- WASH WATER RECIRC PUMPS (x=240, y=720) -->
+          <g class="pfd-node" onclick="pfdShowDetail('wash-recirc')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="200" y="710" width="175" height="80" rx="8" fill="url(#pfd-eqBg)" stroke="#00e676" stroke-width="2"/>
+            <circle cx="233" cy="750" r="16" fill="none" stroke="#00e676" stroke-width="1.8"/>
+            <text x="233" y="756" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">P</text>
+            <text x="310" y="742" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">WASH WATER</text>
+            <text x="310" y="757" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">RECIRC. PUMPS</text>
+            <text x="310" y="771" text-anchor="middle" fill="#aaa"  font-size="9.5">→ Desalter / Dehydrator</text>
+          </g>
+          <!-- Header → Wash Recirc Pumps -->
+          <line x1="303" y1="680" x2="303" y2="710" stroke="url(#pfd-watG)" stroke-width="2.5" marker-end="url(#pfd-arrWdn)"/>
+          <!-- Wash Recirc → Desalter (recycle up) -->
+          <path d="M375,750 L420,750 L420,650 L953,650 L953,600" fill="none" stroke="url(#pfd-rivG)" stroke-width="2" stroke-dasharray="6,4" opacity="0.7" marker-end="url(#pfd-arrRup)"/>
+
+          <!-- PW TRANSFER PUMPS (x=460, y=720) -->
+          <g class="pfd-node" onclick="pfdShowDetail('pw-transfer')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="435" y="710" width="170" height="80" rx="8" fill="url(#pfd-eqBg)" stroke="#29b6f6" stroke-width="2"/>
+            <circle cx="468" cy="750" r="16" fill="none" stroke="#29b6f6" stroke-width="1.8"/>
+            <text x="468" y="756" text-anchor="middle" fill="#29b6f6" font-size="11" font-weight="700">P</text>
+            <text x="540" y="742" text-anchor="middle" fill="#29b6f6" font-size="11" font-weight="700">PW TRANSFER</text>
+            <text x="540" y="757" text-anchor="middle" fill="#29b6f6" font-size="11" font-weight="700">PUMPS</text>
+            <text x="540" y="771" text-anchor="middle" fill="#aaa"   font-size="9.5">TDS 213,152 ppm</text>
+          </g>
+          <line x1="520" y1="680" x2="520" y2="710" stroke="url(#pfd-watG)" stroke-width="2.5" marker-end="url(#pfd-arrWdn)"/>
+
+          <!-- PW TRANSFER → PW BUFFER TANK -->
+          <line x1="605" y1="750" x2="665" y2="750" stroke="url(#pfd-watG)" stroke-width="3" marker-end="url(#pfd-arrW)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- PW BUFFER TANK (x=665, y=710) -->
+          <g class="pfd-node" onclick="pfdShowDetail('pw-buffer')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="665" y="700" width="100" height="110" rx="6" fill="url(#pfd-eqBg)" stroke="#29b6f6" stroke-width="2.2"/>
+            <rect x="674" y="742" width="82" height="60" rx="3" fill="#003366" opacity="0.5"/>
+            <line x1="665" y1="760" x2="765" y2="760" stroke="#29b6f6" stroke-width="1" opacity="0.5"/>
+            <text x="715" y="825" text-anchor="middle" fill="#29b6f6" font-size="11" font-weight="700">PW BUFFER</text>
+            <text x="715" y="840" text-anchor="middle" fill="#29b6f6" font-size="11" font-weight="700">TANK</text>
+          </g>
+
+          <!-- PW BUFFER → PW TREATMENT PACKAGE -->
+          <line x1="765" y1="750" x2="825" y2="750" stroke="url(#pfd-watG)" stroke-width="3" marker-end="url(#pfd-arrW)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- PW TREATMENT PACKAGE (x=825, y=710) -->
+          <g class="pfd-node" onclick="pfdShowDetail('pw-treatment')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="825" y="700" width="195" height="110" rx="8" fill="url(#pfd-eqBg)" stroke="#29b6f6" stroke-width="2.5"/>
+            <!-- hydrocyclone symbols -->
+            <ellipse cx="875" cy="745" rx="26" ry="20" fill="none" stroke="#29b6f6" stroke-width="1.8"/>
+            <ellipse cx="938" cy="745" rx="26" ry="20" fill="none" stroke="#29b6f6" stroke-width="1.8"/>
+            <ellipse cx="1001" cy="745" rx="17" ry="20" fill="none" stroke="#29b6f6" stroke-width="1.5" opacity="0.6"/>
+            <text x="922" y="790" text-anchor="middle" fill="#29b6f6" font-size="11" font-weight="700">PW TREATMENT</text>
+            <text x="922" y="804" text-anchor="middle" fill="#29b6f6" font-size="11" font-weight="700">PACKAGE</text>
+            <text x="922" y="820" text-anchor="middle" fill="#aaa"   font-size="9.5">&lt;40 ppm OiW outlet</text>
+          </g>
+
+          <!-- PW TREATMENT → TREATED PW TANK -->
+          <line x1="1020" y1="750" x2="1078" y2="750" stroke="url(#pfd-watG)" stroke-width="3" marker-end="url(#pfd-arrW)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- TREATED PW TANK (x=1080, y=710) -->
+          <g class="pfd-node" onclick="pfdShowDetail('treated-pw-tank')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="1080" y="700" width="105" height="110" rx="6" fill="url(#pfd-eqBg)" stroke="#00e676" stroke-width="2.2"/>
+            <rect x="1090" y="742" width="85" height="60" rx="3" fill="#003366" opacity="0.5"/>
+            <line x1="1080" y1="760" x2="1185" y2="760" stroke="#00e676" stroke-width="1" opacity="0.5"/>
+            <text x="1132" y="825" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">TREATED PW</text>
+            <text x="1132" y="840" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">TANK</text>
+          </g>
+
+          <!-- TREATED PW TANK → WATER INJECTION PUMPS -->
+          <line x1="1185" y1="750" x2="1248" y2="750" stroke="url(#pfd-watG)" stroke-width="3" marker-end="url(#pfd-arrW)" stroke-dasharray="8,4"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- WATER INJECTION PUMPS (x=1250, y=715) -->
+          <g class="pfd-node" onclick="pfdShowDetail('water-injection')" style="cursor:pointer;" filter="url(#pfd-shadow)">
+            <rect x="1250" y="705" width="190" height="90" rx="8" fill="url(#pfd-eqBg)" stroke="#00e676" stroke-width="2.5"/>
+            <circle cx="1290" cy="750" r="20" fill="none" stroke="#00e676" stroke-width="2"/>
+            <text x="1290" y="756" text-anchor="middle" fill="#00e676" font-size="13" font-weight="800">P</text>
+            <text x="1375" y="742" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">WATER</text>
+            <text x="1375" y="757" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">INJECTION</text>
+            <text x="1375" y="772" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">PUMPS</text>
+          </g>
+
+          <!-- INJECTION PUMPS → WELLS (vertical up) -->
+          <line x1="1345" y1="705" x2="1345" y2="650" stroke="url(#pfd-rivG)" stroke-width="3" marker-end="url(#pfd-arrRup)"/>
+          <!-- Injection Wells block -->
+          <rect x="1282" y="608" width="125" height="44" rx="6" fill="rgba(0,92,46,0.3)" stroke="#00e676" stroke-width="1.8"/>
+          <text x="1345" y="627" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">INJECTION WELLS</text>
+          <text x="1345" y="643" text-anchor="middle" fill="#aaa"   font-size="9.5">→ Zubair Reservoir</text>
+
+          <!-- WASH WATER TANK + River Water (far right, water zone) -->
+          <g class="pfd-node" onclick="pfdShowDetail('wash-recirc')" style="cursor:pointer;">
+            <rect x="1470" y="705" width="110" height="90" rx="6" fill="url(#pfd-eqBg)" stroke="#00e676" stroke-width="1.8"/>
+            <rect x="1480" y="740" width="90" height="48" rx="3" fill="#003d20" opacity="0.6"/>
+            <text x="1525" y="730" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">WASH WATER</text>
+            <text x="1525" y="745" text-anchor="middle" fill="#00e676" font-size="11" font-weight="700">TANK</text>
+            <text x="1525" y="760" text-anchor="middle" fill="#aaa"  font-size="9.5">+ River Water</text>
+          </g>
+          <!-- River water arrow in -->
+          <line x1="1525" y1="680" x2="1525" y2="705" stroke="url(#pfd-rivG)" stroke-width="2" marker-end="url(#pfd-arrWdn)"/>
+          <text x="1525" y="675" text-anchor="middle" fill="#00e676" font-size="9.5">River Water ↓</text>
+          <!-- Wash water → Injection pumps -->
+          <line x1="1470" y1="750" x2="1440" y2="750" stroke="url(#pfd-rivG)" stroke-width="2" stroke-dasharray="5,4" opacity="0.7" marker-end="url(#pfd-arrR)"/>
+
+          <!-- ░░░ BOTTOM SOURCE LABELS ░░░ -->
+          <text x="113"  y="930" text-anchor="middle" fill="rgba(255,171,64,0.5)" font-size="9.5">LP Fuel Gas System</text>
+          <line x1="113" y1="900" x2="113" y2="920" stroke="rgba(255,171,64,0.3)" stroke-width="1"/>
+
+        </svg>
+      </div>
+
+      <!-- Quick Reference Cards (preserved, now in 4-col grid) -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:22px;">
+
+        <div class="calc-card" style="border-left:4px solid #00e676;cursor:pointer;padding:18px 20px;" onclick="pfdShowDetail('sep1')">
+          <div style="font-size:13px;color:#00e676;font-weight:800;margin-bottom:10px;">🔵 Separation Stage</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.85;">
+            <b style="color:#aaa;">1st Stage:</b> 15.2–36.6 barg | 50–77°C<br>
+            <b style="color:#aaa;">2nd Stage:</b> LP flash stage<br>
+            <b style="color:#aaa;">GOR:</b> 893 SCF/STOB<br>
+            <b style="color:#aaa;">Design Life:</b> 25 years | 3 trains active
+          </div>
+        </div>
+
+        <div class="calc-card" style="border-left:4px solid #ff5252;cursor:pointer;padding:18px 20px;" onclick="pfdShowDetail('hp-comp')">
+          <div style="font-size:13px;color:#ff5252;font-weight:800;margin-bottom:10px;">⚙️ Gas Compression Train</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.85;">
+            <b style="color:#aaa;">LP → HP Compressor → HEX → Heater</b><br>
+            <b style="color:#aaa;">Total Gas:</b> 136.8 MMSCFD<br>
+            <b style="color:#aaa;">Quality:</b> Sweet (No H₂S detected)<br>
+            <b style="color:#aaa;">CH₄:</b> 39.83 mol% | CO₂: 0.87 mol%
+          </div>
+        </div>
+
+        <div class="calc-card" style="border-left:4px solid #ffab40;cursor:pointer;padding:18px 20px;" onclick="pfdShowDetail('desalter')">
+          <div style="font-size:13px;color:#ffab40;font-weight:800;margin-bottom:10px;">🧪 Oil Treatment Train</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.85;">
+            <b style="color:#aaa;">Run Down Cooler → Desalter → Dehydrator</b><br>
+            <b style="color:#aaa;">Crude Mix:</b> Mishrif 46% · 3rd Pay 45.3% · 4th Pay 8.7%<br>
+            <b style="color:#aaa;">MW:</b> 104.51 g/mol<br>
+            <b style="color:#aaa;">Export Spec:</b> BS&amp;W &lt;0.5% | Salt &lt;10 PTB
+          </div>
+        </div>
+
+        <div class="calc-card" style="border-left:4px solid #29b6f6;cursor:pointer;padding:18px 20px;" onclick="pfdShowDetail('pw-treatment')">
+          <div style="font-size:13px;color:#29b6f6;font-weight:800;margin-bottom:10px;">💧 Water System</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.85;">
+            <b style="color:#aaa;">PW Transfer → Buffer → Treatment → Injection</b><br>
+            <b style="color:#aaa;">TDS:</b> 213,152 ppm | pH 5.05 | SG 1.1354<br>
+            <b style="color:#aaa;">Cl⁻:</b> 131,989 ppm | Na⁺: 58,677 ppm<br>
+            <b style="color:#aaa;">Treated OiW:</b> &lt;40 ppm → Reservoir Injection
+          </div>
+        </div>
+
+        <div class="calc-card" style="border-left:4px solid #ffc107;cursor:pointer;padding:18px 20px;" onclick="pfdShowDetail('crude-tank')">
+          <div style="font-size:13px;color:#ffc107;font-weight:800;margin-bottom:10px;">🛢️ Storage &amp; Export</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.85;">
+            <b style="color:#aaa;">On-Spec Tank → Export Pumps → Pipeline</b><br>
+            <b style="color:#aaa;">Off-Spec Tank → Transfer Pumps → Re-treat</b><br>
+            <b style="color:#aaa;">Export:</b> Crude Oil Export Pipeline<br>
+            <b style="color:#aaa;">Standard:</b> API-650 | API-2000 | NFPA-30
+          </div>
+        </div>
+
+        <div class="calc-card" style="border-left:4px solid #ff9800;cursor:pointer;padding:18px 20px;" onclick="pfdShowDetail('inlet')">
+          <div style="font-size:13px;color:#ff9800;font-weight:800;margin-bottom:10px;">📋 Fluid Properties</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.85;">
+            <b style="color:#aaa;">Reservoirs:</b> Mishrif (Carbonate) + 3rd & 4th Pay (Sandstone)<br>
+            <b style="color:#aaa;">Viscosity at 15.6°C:</b> 16–33 cSt<br>
+            <b style="color:#aaa;">Sweet crude</b> — H₂S = 0 ppm<br>
+            <b style="color:#aaa;">Inlet P:</b> 15.2–36.6 barg | T: 50–77°C
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Equipment Detail Modal -->
+      <div id="pfdModal" style="display:none;position:fixed;inset:0;background:rgba(0,5,20,0.85);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(6px);">
+        <div id="pfdModalBox" style="background:linear-gradient(145deg,#0e1e30,#1a2e45);border:1px solid rgba(0,240,255,0.3);border-radius:16px;max-width:660px;width:92%;max-height:82vh;overflow-y:auto;padding:32px 30px;position:relative;box-shadow:0 8px 60px rgba(0,0,0,0.7),0 0 40px rgba(0,240,255,0.08);">
+          <button onclick="pfdCloseModal()" style="position:absolute;top:16px;right:18px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#ccc;font-size:18px;cursor:pointer;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,50,50,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">✕</button>
+          <div id="pfdModalContent"></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- ===== END HAMMAR IPF PFD TAB ===== -->
+
   </main>
 
   <!-- ALARMS PANEL MOVED TO HEADER -->
@@ -646,5 +1648,7 @@
 <script src="core.js"></script>
 <script src="charts.js"></script>
 <script src="features.js"></script>
+<script src="separator_design.js"></script>
+<script src="hammar_pfd.js"></script>
 </body>
 </html>

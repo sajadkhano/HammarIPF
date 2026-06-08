@@ -46,7 +46,7 @@
                 </svg>
               </div>
               <h2 class="login-title">HAMMAR IPF</h2>
-              <p class="login-subtitle">Smart SCADA Digital Twin</p>
+              <p class="login-subtitle">Hano Control Digital Twin</p>
             </div>
 
             

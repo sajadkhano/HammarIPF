@@ -1,6 +1,6 @@
-# Hammar IPF - Smart SCADA & Engineering Dashboard 🛢️
+# Hammar IPF - Hano Control & Engineering Dashboard 🛢️
 
-![Hammar SCADA](https://img.shields.io/badge/Platform-Smart%20SCADA-blue)
+![Hammar SCADA](https://img.shields.io/badge/Platform-Hano%20Control-blue)
 ![API Standards](https://img.shields.io/badge/Standards-API%2012J%20%7C%20ASTM-green)
 
 An advanced GOSP (Gas Oil Separation Plant) simulation and engineering platform designed for real-time monitoring and calculation of oil and gas surface facilities.

@@ -420,3 +420,230 @@ html[dir="rtl"] .alarm-item.warning{border-right-color:#ffab40;}
   .content{max-height:none;overflow:visible}
   .tab-panel{display:block!important;page-break-after:always}
 }
+
+/* ================================================================
+   SEPARATOR DESIGN MODULE — STYLES
+   ================================================================ */
+
+/* --- Sidebar nav button special style --- */
+.sd-nav-special{
+  margin-top:8px;
+  background:linear-gradient(135deg,rgba(13,71,161,0.08),rgba(21,101,192,0.04));
+  border-top:1px solid rgba(13,71,161,0.12);
+  position:relative;
+  flex-wrap:wrap;
+  gap:4px;
+}
+.sd-nav-special:hover{
+  background:linear-gradient(135deg,rgba(13,71,161,0.15),rgba(21,101,192,0.08));
+  color:#1565c0;
+  border-color:#1565c0;
+}
+.sd-nav-special.active{
+  background:linear-gradient(135deg,rgba(13,71,161,0.15),rgba(21,101,192,0.08));
+  color:#1565c0;
+  border-left:3px solid #1565c0;
+}
+.sd-nav-label{flex:1}
+.sd-nav-badge{
+  background:linear-gradient(135deg,#e53935,#b71c1c);
+  color:#fff;
+  font-size:9px;
+  font-weight:800;
+  padding:2px 6px;
+  border-radius:10px;
+  letter-spacing:.08em;
+  animation:pulse 2s infinite;
+  flex-shrink:0;
+}
+
+/* --- Page Header --- */
+.sd-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(135deg,#e3f2fd,#f1f8e9);
+  border:1.5px solid #90caf9;
+  border-radius:16px;
+  padding:18px 24px;
+  margin-bottom:20px;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.sd-header-left{display:flex;align-items:center;gap:16px}
+.sd-header-icon{font-size:32px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.12))}
+.sd-std-badges{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sd-std-badge{
+  font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;
+  letter-spacing:.03em;white-space:nowrap;
+}
+
+/* --- Top Grid (Config + Summary) --- */
+.sd-top-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-bottom:20px;
+}
+.sd-config-card,.sd-summary-card{min-height:320px}
+
+/* --- Type Selector --- */
+.sd-type-selector{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.sd-type-opt{cursor:pointer;user-select:none}
+.sd-type-opt input[type=radio]{display:none}
+.sd-type-card{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:12px 14px;border-radius:14px;border:2px solid var(--card-border);
+  background:#fafcfe;cursor:pointer;transition:all .25s;min-width:90px;
+}
+.sd-type-opt input[type=radio]:checked + .sd-type-card{
+  border-color:#1565c0;
+  background:linear-gradient(135deg,#e3f2fd,#fff);
+  box-shadow:0 4px 18px rgba(21,101,192,.18);
+  transform:translateY(-3px);
+}
+.sd-type-card:hover{border-color:#90caf9;background:#f0f7ff;transform:translateY(-2px)}
+.sd-type-svg{display:flex;align-items:center;justify-content:center;min-height:50px}
+.sd-type-name{font-size:12px;font-weight:700;color:var(--text)}
+.sd-type-sub{font-size:10px;color:var(--text3);font-family:var(--mono)}
+
+/* --- Select Dropdowns --- */
+.sd-select{
+  width:100%;padding:9px 12px;border:1.5px solid var(--card-border);
+  border-radius:8px;background:#f8fafb;color:var(--text);
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
+  outline:none;cursor:pointer;transition:all .25s;margin-top:4px;
+}
+.sd-select:focus{border-color:#1565c0;box-shadow:0 0 0 3px rgba(21,101,192,.1)}
+
+/* --- Field label --- */
+.sd-field-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em}
+
+/* --- Inputs Grid --- */
+.sd-inputs-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr;
+  gap:16px;
+  margin-bottom:20px;
+}
+
+/* --- Reference Box --- */
+.sd-ref-box{
+  margin-top:14px;background:rgba(0,0,0,.02);
+  border:1px solid var(--card-border);border-radius:10px;
+  padding:12px;
+}
+.sd-ref-title{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.sd-ref-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--text2);padding:4px 0;
+  border-bottom:1px solid rgba(0,0,0,.04);
+}
+.sd-ref-row:last-child{border-bottom:none}
+.sd-ref-row span:last-child{font-family:var(--mono);font-weight:600;color:var(--gas);font-size:11px}
+
+/* --- Calculate Button --- */
+.sd-calc-btn{
+  width:100%;padding:16px;margin-bottom:24px;
+  background:linear-gradient(135deg,#0d47a1,#1565c0,#1976d2);
+  color:#fff;border:none;border-radius:12px;
+  font-weight:800;font-size:14px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  transition:all .25s;letter-spacing:.04em;
+  box-shadow:0 4px 20px rgba(13,71,161,.3);
+}
+.sd-calc-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(13,71,161,.45);
+  background:linear-gradient(135deg,#1565c0,#1976d2,#1e88e5);
+}
+.sd-calc-btn:active{transform:translateY(0)}
+
+/* --- Results Grid --- */
+.sd-results-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+  margin-bottom:20px;
+}
+.sd-sketch-card{grid-column:span 1}
+
+/* --- Sketch Box --- */
+.sd-sketch-box{
+  background:linear-gradient(135deg,#f8fbff,#eef5fc);
+  border:1.5px solid #90caf9;border-radius:12px;
+  padding:16px;min-height:220px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.sd-sketch-box svg{width:100%;height:auto;display:block}
+
+/* --- Result Rows --- */
+.sd-res-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);
+}
+.sd-res-row:last-child{border-bottom:none}
+.sd-res-row.sd-highlight{
+  background:linear-gradient(135deg,rgba(21,101,192,.05),rgba(21,101,192,.02));
+  border-radius:6px;padding:7px 8px;
+  border-left:3px solid #1565c0;margin:2px 0;
+}
+.sd-res-label{font-size:11px;color:var(--text2)}
+.sd-res-value{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)}
+.sd-res-unit{font-family:var(--mono);font-size:10px;color:var(--text3);margin-left:3px}
+
+/* --- Summary Badges --- */
+.sd-badge-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sd-badge{
+  font-size:11px;font-weight:700;padding:4px 12px;
+  border-radius:20px;white-space:nowrap;flex-shrink:0;min-width:120px;text-align:center;
+}
+.sd-badge-val{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--text)}
+.sd-stage-reason{
+  margin-top:10px;padding:10px 14px;
+  background:linear-gradient(135deg,rgba(0,184,148,.06),rgba(0,184,148,.02));
+  border:1px solid rgba(0,184,148,.2);border-radius:10px;
+}
+.sd-stage-reason ul{list-style:none;padding:0;margin:0}
+.sd-stage-reason li{
+  font-size:11px;color:var(--text2);padding:4px 0;
+  padding-left:18px;position:relative;
+}
+.sd-stage-reason li::before{
+  content:'✓';position:absolute;left:0;
+  color:#00b894;font-weight:700;font-size:11px;
+}
+
+/* --- Placeholder --- */
+.sd-placeholder{
+  color:var(--text3);font-size:12px;text-align:center;
+  padding:20px;font-style:italic;
+}
+
+/* --- Responsive --- */
+@media(max-width:1400px){
+  .sd-inputs-grid{grid-template-columns:1fr 1fr}
+  .sd-results-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:1024px){
+  .sd-top-grid{grid-template-columns:1fr}
+  .sd-inputs-grid{grid-template-columns:1fr 1fr}
+  .sd-results-grid{grid-template-columns:1fr}
+  .sd-sketch-card{grid-column:span 1}
+}
+@media(max-width:768px){
+  .sd-header{flex-direction:column;align-items:flex-start}
+  .sd-inputs-grid{grid-template-columns:1fr}
+  .sd-type-selector{justify-content:flex-start}
+}
+
+/* Dark mode overrides */
+body.dark-mode .sd-header{background:linear-gradient(135deg,rgba(13,71,161,.15),rgba(27,94,32,.1));border-color:rgba(21,101,192,.3)}
+body.dark-mode .sd-type-card{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)}
+body.dark-mode .sd-type-opt input[type=radio]:checked + .sd-type-card{background:rgba(21,101,192,.2);border-color:#1976d2}
+body.dark-mode .sd-select{background:rgba(255,255,255,.06);color:var(--text)}
+body.dark-mode .sd-sketch-box{background:linear-gradient(135deg,#0d1b2a,#0a1520);border-color:rgba(21,101,192,.3)}
+body.dark-mode .sd-ref-box{background:rgba(255,255,255,.03)}
+body.dark-mode .sd-res-row.sd-highlight{background:rgba(21,101,192,.12)}
+

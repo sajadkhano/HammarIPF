@@ -8,10 +8,10 @@ If fso.FileExists("cloudflared.log") Then
 End If
 
 ' Start Python server hidden
-WshShell.Run "cmd /c start /b python -m http.server 8080", 0, False
+WshShell.Run "cmd /c start /b python -m http.server 8089", 0, False
 
 ' Start Cloudflared hidden and redirect to log
-WshShell.Run "cmd /c .\cloudflared.exe tunnel --url http://localhost:8080 2> cloudflared.log", 0, False
+WshShell.Run "cmd /c .\cloudflared.exe tunnel --url http://localhost:8089 2> cloudflared.log", 0, False
 
 ' Wait for the log file to be created and contain the URL
 WScript.Sleep 3000

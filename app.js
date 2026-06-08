@@ -1,4 +1,4 @@
-// ===== Hammar IPF - Smart SCADA Dashboard =====
+// ===== Hammar IPF - Hano Control Dashboard =====
 // Interactive GOSP Dashboard Logic
 
 (function () {
