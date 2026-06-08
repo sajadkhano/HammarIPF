@@ -14,13 +14,28 @@
         <div class="login-card" id="loginCard">
           <!-- Left side: Credits -->
           <div class="login-left">
+            <div class="tech-hud-ring"></div>
+            <div class="tech-hud-ring2"></div>
             <div class="login-credits-wrap">
-              <img src="شعار الجامعة.jpg" class="university-logo" alt="Al-Maaqal University" style="animation: loginFloat 3s ease-in-out infinite; box-shadow: 0 0 30px var(--accent-glow); border: 2px solid rgba(0,240,255,0.3);">
-              <div class="credits-title">Academic Project</div>
+              <img src="شعار الجامعة.jpg" class="university-logo" alt="Al-Maaqal University">
+              <div class="credits-title">Academic Graduation Project</div>
 
               <div class="credits-text">
-                This project was developed and modeled to simulate the Hammar station by Petroleum Engineering students at Al-Maaqal University, under the direct supervision of:
-                <strong>"Dr. Eng. Saher Adel & Dr. Mahmoud Badawy"</strong>
+                This engineering system was designed and modeled to simulate the Hammar GOSP Station by Petroleum Engineering department at Al-Maaqal University.
+              </div>
+              
+              <div class="developer-credit-card">
+                <div class="cyber-scanline"></div>
+                <div class="dev-badge-glow"></div>
+                <div class="dev-subtitle">SYSTEM CREATOR & DEVELOPER</div>
+                <div class="dev-name">sjjad k. Hano</div>
+                <div class="dev-arabic">تم التطوير والإنشاء من قبل الطالب سجاد ك. هانو</div>
+                <div class="dev-dept">Petroleum Engineering Department</div>
+              </div>
+
+              <div class="supervision-card">
+                <div class="sup-title">UNDER THE DIRECT SUPERVISION OF</div>
+                <div class="sup-names">Dr. Eng. Saher Adel & Dr. Mahmoud Badawy</div>
               </div>
             </div>
           </div>
@@ -136,6 +151,40 @@
 
     btn.onclick = doLogin;
     pass.onkeydown = function(e){ if(e.key === "Enter") doLogin(); };
+
+    // 3D Parallax Mouse Move effect on login card
+    var bg = document.querySelector('.login-bg');
+    if (bg && card) {
+      bg.addEventListener('mousemove', function(e) {
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        var mouseX = e.clientX - w / 2;
+        var mouseY = e.clientY - h / 2;
+        
+        // Calculate rotation angles (max 6 degrees)
+        var rotateY = (mouseX / (w / 2)) * 6;
+        var rotateX = -(mouseY / (h / 2)) * 6;
+        
+        card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+        
+        var rings = document.querySelector('.login-rings');
+        if (rings) {
+          rings.style.transform = 'translate(' + (mouseX * -0.025) + 'px, ' + (mouseY * -0.025) + 'px)';
+        }
+        var pWrap = document.getElementById('loginParticles');
+        if (pWrap) {
+          pWrap.style.transform = 'translate(' + (mouseX * 0.035) + 'px, ' + (mouseY * 0.035) + 'px)';
+        }
+      });
+
+      bg.addEventListener('mouseleave', function() {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        var rings = document.querySelector('.login-rings');
+        if (rings) rings.style.transform = 'translate(0, 0)';
+        var pWrap = document.getElementById('loginParticles');
+        if (pWrap) pWrap.style.transform = 'translate(0, 0)';
+      });
+    }
 
     if(sessionStorage.getItem('hammar_auth') === 'true'){
       loginScreen.remove();

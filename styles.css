@@ -647,3 +647,97 @@ body.dark-mode .sd-sketch-box{background:linear-gradient(135deg,#0d1b2a,#0a1520)
 body.dark-mode .sd-ref-box{background:rgba(255,255,255,.03)}
 body.dark-mode .sd-res-row.sd-highlight{background:rgba(21,101,192,.12)}
 
+/* ===== SIDEBAR DEVELOPER FOOTER ===== */
+.sidebar-dev-footer {
+  margin-top: auto;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(0, 230, 118, 0.03));
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.sidebar-dev-footer:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 240, 255, 0.15);
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.08), rgba(0, 230, 118, 0.05));
+}
+.dev-footer-avatar {
+  font-size: 18px;
+  background: rgba(0, 240, 255, 0.1);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+.dev-footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dev-footer-title {
+  font-size: 8px;
+  color: var(--text3);
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.dev-footer-name {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+body.dark-mode .dev-footer-name {
+  color: #00f0ff;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+}
+.dev-footer-pulse {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  background-color: #00e676;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00e676;
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px #00e676; }
+  100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+@keyframes modalSlideIn {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media(max-width:1024px){
+  .sidebar-dev-footer {
+    padding: 8px 0;
+    justify-content: center;
+  }
+  .sidebar-dev-footer .dev-footer-content,
+  .sidebar-dev-footer .dev-footer-pulse {
+    display: none;
+  }
+}
+@media(max-width:768px){
+  .sidebar-dev-footer {
+    display: none;
+  }
+}
+

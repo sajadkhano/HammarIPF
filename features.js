@@ -512,3 +512,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (simActive) logProduction();
   }, 300000);
 });
+
+// ===== DEVELOPER MODAL ACTIONS =====
+window.openDevModal = function() {
+  var modal = document.getElementById('devModal');
+  if (modal) {
+    modal.style.display = 'flex';
+  }
+};
+
+window.closeDevModal = function() {
+  var modal = document.getElementById('devModal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+};
+
+// Close developer modal when clicking outside the box
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('devModal');
+  if (modal && modal.style.display === 'flex' && e.target === modal) {
+    window.closeDevModal();
+  }
+});

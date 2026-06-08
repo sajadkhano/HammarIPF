@@ -215,6 +215,16 @@ This project adheres to international engineering standards:
       <span class="sd-nav-label">Hammar IPF PFD</span>
       <span class="sd-nav-badge" style="background:linear-gradient(90deg,#ff6b00,#ffab00);">PFD</span>
     </button>
+    
+    <!-- Developer Credit Section in Sidebar -->
+    <div class="sidebar-dev-footer" onclick="openDevModal()">
+      <div class="dev-footer-avatar">🎓</div>
+      <div class="dev-footer-content">
+        <span class="dev-footer-title">DEVELOPED BY</span>
+        <span class="dev-footer-name">sjjad k. Hano</span>
+      </div>
+      <div class="dev-footer-pulse"></div>
+    </div>
   </nav>
 
 
@@ -1720,6 +1730,38 @@ This project adheres to international engineering standards:
 
 </div>
 
+<!-- Developer & Project Info Modal -->
+<div id="devModal" style="display:none;position:fixed;inset:0;background:rgba(0,5,20,0.85);z-index:10000;align-items:center;justify-content:center;backdrop-filter:blur(8px);">
+  <div id="devModalBox" style="background:linear-gradient(145deg,#070f1a,#101e30);border:2px solid rgba(0,240,255,0.3);border-radius:24px;max-width:540px;width:90%;max-height:85vh;overflow-y:auto;padding:36px;position:relative;box-shadow:0 15px 60px rgba(0,240,255,0.15), inset 0 1px 0 rgba(255,255,255,0.05);animation:modalSlideIn 0.3s ease forwards;">
+    <button onclick="closeDevModal()" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#a5c0d6;font-size:18px;cursor:pointer;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,50,50,0.2)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.color='#a5c0d6'">✕</button>
+    
+    <div style="text-align:center;">
+      <img src="شعار الجامعة.jpg" style="width:90px;height:90px;object-fit:contain;background:#fff;border-radius:18px;padding:6px;box-shadow:0 0 30px rgba(0,240,255,0.25);border:2px solid rgba(0,240,255,0.2);margin-bottom:20px;">
+      <h3 style="font-size:15px;color:#00f0ff;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">Al-Maaqal University</h3>
+      <p style="font-size:12px;color:#5a7aaa;margin-bottom:24px;">Petroleum Engineering Department</p>
+      
+      <div style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.12);border-radius:16px;padding:20px;margin-bottom:24px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#00f0ff,#00e676);"></div>
+        <div style="font-size:10px;color:#a5c0d6;letter-spacing:2px;font-weight:700;margin-bottom:6px;">ACADEMIC GRADUATION PROJECT</div>
+        <div style="font-size:24px;font-weight:900;color:#00f0ff;text-shadow:0 0 10px rgba(0,240,255,0.3);margin-bottom:4px;">sjjad k. Hano</div>
+        <div style="font-size:13px;color:#00e676;font-weight:700;margin-bottom:12px;">الطالب سجاد ك. هانو</div>
+        <p style="font-size:13px;color:#a5c0d6;line-height:1.6;margin:0;">
+          Created and programmed this advanced digital twin simulation platform ("Hano Control") for the Hammar GOSP (Gas Oil Separation Plant) surface facilities.
+        </p>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:14px;margin-bottom:24px;text-align:left;">
+        <div style="font-size:9px;color:#5a7aaa;letter-spacing:1px;font-weight:700;margin-bottom:4px;text-align:center;">PROJECT SUPERVISORS</div>
+        <div style="font-size:13px;color:#e0f0ff;font-weight:600;text-align:center;">Dr. Eng. Saher Adel &amp; Dr. Mahmoud Badawy</div>
+      </div>
+
+      <button onclick="closeDevModal()" style="background:linear-gradient(90deg,#00f0ff,#00e676);border:none;border-radius:12px;padding:12px 30px;color:#050a14;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 5px 20px rgba(0,240,255,0.25);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 8px 25px rgba(0,240,255,0.4)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 5px 20px rgba(0,240,255,0.25)'">
+        CLOSE PROFILE
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 <script src="login.js"></script>
 <script src="core.js"></script>
@@ -2385,6 +2427,100 @@ body.dark-mode .sd-select{background:rgba(255,255,255,.06);color:var(--text)}
 body.dark-mode .sd-sketch-box{background:linear-gradient(135deg,#0d1b2a,#0a1520);border-color:rgba(21,101,192,.3)}
 body.dark-mode .sd-ref-box{background:rgba(255,255,255,.03)}
 body.dark-mode .sd-res-row.sd-highlight{background:rgba(21,101,192,.12)}
+
+/* ===== SIDEBAR DEVELOPER FOOTER ===== */
+.sidebar-dev-footer {
+  margin-top: auto;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(0, 230, 118, 0.03));
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.sidebar-dev-footer:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 240, 255, 0.15);
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.08), rgba(0, 230, 118, 0.05));
+}
+.dev-footer-avatar {
+  font-size: 18px;
+  background: rgba(0, 240, 255, 0.1);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+.dev-footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dev-footer-title {
+  font-size: 8px;
+  color: var(--text3);
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.dev-footer-name {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+body.dark-mode .dev-footer-name {
+  color: #00f0ff;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+}
+.dev-footer-pulse {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  background-color: #00e676;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00e676;
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px #00e676; }
+  100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+@keyframes modalSlideIn {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media(max-width:1024px){
+  .sidebar-dev-footer {
+    padding: 8px 0;
+    justify-content: center;
+  }
+  .sidebar-dev-footer .dev-footer-content,
+  .sidebar-dev-footer .dev-footer-pulse {
+    display: none;
+  }
+}
+@media(max-width:768px){
+  .sidebar-dev-footer {
+    display: none;
+  }
+}
 
 
 ```
@@ -3230,6 +3366,29 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 300000);
 });
 
+// ===== DEVELOPER MODAL ACTIONS =====
+window.openDevModal = function() {
+  var modal = document.getElementById('devModal');
+  if (modal) {
+    modal.style.display = 'flex';
+  }
+};
+
+window.closeDevModal = function() {
+  var modal = document.getElementById('devModal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+};
+
+// Close developer modal when clicking outside the box
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('devModal');
+  if (modal && modal.style.display === 'flex' && e.target === modal) {
+    window.closeDevModal();
+  }
+});
+
 ```
 
 ---
@@ -3713,91 +3872,278 @@ function initAnalyticsCharts(){
 **Path:** `HammarIPF/login.css`
 ```css
 /* ===== LOGIN SCREEN ===== */
-@keyframes loginFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes loginPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
-@keyframes loginGlow{0%{box-shadow:0 0 30px rgba(0,240,255,.15),0 0 60px rgba(0,230,118,.08)}50%{box-shadow:0 0 50px rgba(0,240,255,.3),0 0 90px rgba(124,77,255,.15)}100%{box-shadow:0 0 30px rgba(0,240,255,.15),0 0 60px rgba(0,230,118,.08)}}
-@keyframes loginShake{0%,100%{transform:translateX(0)}15%{transform:translateX(-12px)}30%{transform:translateX(10px)}45%{transform:translateX(-8px)}60%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
-@keyframes loginSuccess{0%{border-color:rgba(0,230,118,.3)}50%{border-color:#00e676;box-shadow:0 0 60px rgba(0,230,118,.4)}100%{border-color:rgba(0,230,118,.3)}}
-@keyframes ringRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes ringRotateR{from{transform:rotate(360deg)}to{transform:rotate(0deg)}}
-@keyframes colorShift{0%{border-color:#00f0ff;filter:hue-rotate(0deg)}25%{border-color:#00e676;filter:hue-rotate(60deg)}50%{border-color:#7c4dff;filter:hue-rotate(120deg)}75%{border-color:#ff6d00;filter:hue-rotate(180deg)}100%{border-color:#00f0ff;filter:hue-rotate(360deg)}}
-@keyframes dotPop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.3)}100%{transform:scale(1);opacity:1}}
-@keyframes fadeOutLogin{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.05)}}
+@keyframes loginFloat {0%, 100% {transform: translateY(0) scale(1)} 50% {transform: translateY(-8px) scale(1.02)}}
+@keyframes loginPulse {0%, 100% {opacity: .4; transform: scale(1)} 50% {opacity: 1; transform: scale(1.6)}}
+@keyframes loginGlow {
+  0% {box-shadow: 0 0 40px rgba(0, 240, 255, 0.15), 0 0 80px rgba(0, 230, 118, 0.05), inset 0 0 20px rgba(0, 240, 255, 0.05);}
+  50% {box-shadow: 0 0 60px rgba(0, 240, 255, 0.35), 0 0 100px rgba(124, 77, 255, 0.2), inset 0 0 30px rgba(0, 230, 118, 0.1);}
+  100% {box-shadow: 0 0 40px rgba(0, 240, 255, 0.15), 0 0 80px rgba(0, 230, 118, 0.05), inset 0 0 20px rgba(0, 240, 255, 0.05);}
+}
+@keyframes loginShake {0%, 100% {transform: translateX(0)} 15% {transform: translateX(-10px)} 30% {transform: translateX(8px)} 45% {transform: translateX(-6px)} 60% {transform: translateX(4px)} 75% {transform: translateX(-2px)}}
+@keyframes loginSuccess {0% {border-color: rgba(0,230,118,.3)} 50% {border-color: #00e676; box-shadow: 0 0 80px rgba(0, 230, 118, 0.5)} 100% {border-color: rgba(0,230,118,.3)}}
+@keyframes ringRotate {from {transform: rotate(0deg)} to {transform: rotate(360deg)}}
+@keyframes ringRotateR {from {transform: rotate(360deg)} to {transform: rotate(0deg)}}
+@keyframes fadeOutLogin {0% {opacity: 1; transform: scale(1)} 100% {opacity: 0; transform: scale(1.03); filter: blur(10px)}}
+@keyframes gradientSweep {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes cardPulseGlow {
+  0%, 100% {
+    box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.03);
+    border-color: rgba(0, 240, 255, 0.12);
+  }
+  50% {
+    box-shadow: 0 8px 32px 0 rgba(0, 230, 118, 0.08);
+    border-color: rgba(0, 230, 118, 0.2);
+  }
+}
 
-#loginScreen{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10000}
-#loginScreen.fadeout{animation:fadeOutLogin .6s ease forwards}
+#loginScreen {position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10000}
+#loginScreen.fadeout {animation: fadeOutLogin .6s cubic-bezier(0.4, 0, 0.2, 1) forwards}
 
-.login-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,#060912 0%,#0a1428 50%,#060912 100%);
-  position:relative;overflow:hidden}
+.login-bg {width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at center, #0e1a30 0%, #050a14 100%);
+  position: relative; overflow: hidden}
 
-.login-particles{position:absolute;inset:0;pointer-events:none}
-.login-particle{position:absolute;border-radius:50%;opacity:0;animation:loginPulse var(--dur,4s) ease-in-out infinite;animation-delay:var(--delay,0s)}
+.login-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: center;
+  pointer-events: none;
+  z-index: 1;
+  animation: gridPulse 8s ease-in-out infinite;
+}
 
-.login-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.login-ring{position:absolute;border-radius:50%;border:1px solid transparent}
-.ring1{width:600px;height:600px;border-color:rgba(0,240,255,.05);animation:ringRotate 30s linear infinite}
-.ring2{width:450px;height:450px;border-color:rgba(0,230,118,.07);border-style:dashed;animation:ringRotateR 25s linear infinite}
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+}
+
+.login-particles {position: absolute; inset: 0; pointer-events: none}
+.login-particle {position: absolute; border-radius: 50%; opacity: 0; animation: loginPulse var(--dur,4s) ease-in-out infinite; animation-delay: var(--delay,0s)}
+
+.login-rings {position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none}
+.login-ring {position: absolute; border-radius: 50%; border: 1px solid transparent}
+.ring1 {width: 700px; height: 700px; border-color: rgba(0, 240, 255, 0.04); animation: ringRotate 40s linear infinite}
+.ring2 {width: 500px; height: 500px; border-color: rgba(0, 230, 118, 0.05); border-style: dashed; animation: ringRotateR 30s linear infinite}
+
+/* Tech HUD Rings on Left Side */
+.tech-hud-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 360px;
+  height: 360px;
+  margin-top: -180px;
+  margin-left: -180px;
+  border: 1px dashed rgba(0, 240, 255, 0.08);
+  border-radius: 50%;
+  animation: ringRotate 25s linear infinite;
+  pointer-events: none;
+}
+.tech-hud-ring2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  margin-top: -200px;
+  margin-left: -200px;
+  border: 1px double rgba(0, 230, 118, 0.05);
+  border-radius: 50%;
+  animation: ringRotateR 35s linear infinite;
+  pointer-events: none;
+}
 
 /* Card */
-.login-card{position:relative;z-index:10;background:rgba(10,15,28,.8);backdrop-filter:blur(40px);
-  border:1px solid rgba(0,240,255,.2);border-radius:32px;display:flex;width:880px;max-width:95vw;min-height:500px;
-  box-shadow:0 25px 80px rgba(0,0,0,0.5);
-  animation:loginGlow 5s ease-in-out infinite;overflow:hidden;
-  transition:all .5s}
-.login-card.shake{animation:loginShake .5s ease}
-.login-card.success{animation:loginSuccess .8s ease}
+.login-card {position: relative; z-index: 10; background: rgba(8, 12, 24, 0.65); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 36px; display: flex; width: 920px; max-width: 95vw; min-height: 520px;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation: loginGlow 6s ease-in-out infinite; overflow: hidden;
+  transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s, border-color 0.5s;
+  transform-style: preserve-3d;
+  perspective: 1000px;}
+.login-card.shake {animation: loginShake .5s ease}
+.login-card.success {animation: loginSuccess .8s ease}
 
-.login-left{flex:1.2;padding:50px;display:flex;flex-direction:column;justify-content:center;
-  background:linear-gradient(180deg, rgba(0,240,255,0.03) 0%, transparent 100%);
-  border-right:1px solid rgba(255,255,255,0.05);position:relative}
+.login-left {flex: 1.15; padding: 45px; display: flex; flex-direction: column; justify-content: center;
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.03) 0%, transparent 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.06); position: relative}
 
-.login-right{flex:1;padding:50px;display:flex;flex-direction:column;justify-content:center;background:rgba(0,0,0,0.2)}
+.login-right {flex: 1; padding: 45px; display: flex; flex-direction: column; justify-content: center; background: rgba(0, 0, 0, 0.25)}
 
 /* Credits Section */
-.login-credits-wrap{text-align:center;font-family:'Inter',sans-serif}
-.university-logo{width:80px;height:80px;margin-bottom:24px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 0 25px rgba(0,240,255,0.3);object-fit:contain}
-.credits-title{color:#00f0ff;font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:15px;opacity:0.8}
-.credits-text{color:#e0f0ff;font-size:16px;line-height:1.8;margin-bottom:20px;font-weight:400}
-.credits-text strong{display:block;margin-top:15px;color:#00e676;font-size:18px;text-shadow:0 0 10px rgba(0,230,118,0.3)}
+.login-credits-wrap {text-align: center; font-family: 'Inter', sans-serif; z-index: 2}
+.university-logo {width: 85px; height: 85px; margin-bottom: 20px; background: #fff; border-radius: 16px; padding: 6px; box-shadow: 0 0 25px rgba(0, 240, 255, 0.25); border: 2px solid rgba(0, 240, 255, 0.2); animation: loginFloat 4s ease-in-out infinite; object-fit: contain}
+.credits-title {color: #00f0ff; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; opacity: 0.85}
+.credits-text {color: #a5c0d6; font-size: 14.5px; line-height: 1.7; margin-bottom: 15px; font-weight: 400}
+
+/* Developer Credit Card */
+.developer-credit-card {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 20px;
+  padding: 20px 16px;
+  margin: 20px 0;
+  box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: cardPulseGlow 4s ease-in-out infinite;
+}
+.developer-credit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.15), transparent);
+  transition: 0.5s;
+}
+.developer-credit-card:hover::before {
+  left: 100%;
+  transition: 0.8s ease;
+}
+.developer-credit-card:hover {
+  border-color: rgba(0, 240, 255, 0.5);
+  transform: scale(1.03) translateY(-3px);
+  box-shadow: 0 15px 45px 0 rgba(0, 240, 255, 0.2);
+}
+.dev-subtitle {
+  font-size: 8.5px;
+  color: #8ab4d4;
+  letter-spacing: 0.2em;
+  font-weight: 800;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.dev-name {
+  font-size: 22px;
+  font-weight: 950;
+  color: #00f0ff;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.dev-arabic {
+  font-size: 12px;
+  color: #00e676;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+  letter-spacing: 0.01em;
+  margin-top: 4px;
+}
+.dev-dept {
+  font-size: 9px;
+  color: #5a7aaa;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+.dev-badge-glow {
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cyber-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.4), transparent);
+  animation: scanSweep 3s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+@keyframes scanSweep {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Supervision Card */
+.supervision-card {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.sup-title {
+  font-size: 8px;
+  color: #5a7aaa;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.sup-names {
+  font-size: 12px;
+  color: #e0f0ff;
+  font-weight: 600;
+  opacity: 0.9;
+}
 
 /* Logo Section */
-.login-logo-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:30px}
-.main-logo{width:100px;height:100px;object-fit:contain;margin-bottom:15px;background:#fff;border-radius:18px;padding:10px;box-shadow:0 0 30px rgba(0,240,255,0.3)}
-.station-logo-crop{height:80px;width:auto;object-fit:cover;object-position:top;background:#fff;padding:8px;border-radius:14px;}
-.login-title{font-family:'Inter',sans-serif;font-size:32px;font-weight:900;text-align:center;
-  background:linear-gradient(135deg,#00f0ff,#00e676);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  margin-bottom:5px}
-.login-subtitle{text-align:center;font-size:11px;color:#5a7aaa;letter-spacing:.3em;text-transform:uppercase;font-weight:600}
+.login-logo-wrap {display: flex; flex-direction: column; align-items: center; margin-bottom: 25px}
+.main-logo {width: 90px; height: 90px; object-fit: contain; margin-bottom: 12px; background: #fff; border-radius: 18px; padding: 8px; box-shadow: 0 0 25px rgba(0, 240, 255, 0.25); border: 2px solid rgba(0, 240, 255, 0.15); transition: all 0.3s ease}
+.main-logo:hover {transform: scale(1.05) rotate(2deg); box-shadow: 0 0 35px rgba(0, 240, 255, 0.4)}
+.station-logo-crop {height: 75px; width: 75px; object-fit: cover; object-position: top; background: #fff; padding: 6px; border-radius: 14px;}
+.login-title {font-family: 'Inter', sans-serif; font-size: 30px; font-weight: 900; text-align: center;
+  background: linear-gradient(135deg, #00f0ff, #00e676);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 4px; letter-spacing: 0.02em}
+.login-subtitle {text-align: center; font-size: 10px; color: #5a7aaa; letter-spacing: .25em; text-transform: uppercase; font-weight: 600}
 
 /* Form */
-.login-field{margin-bottom:20px}
-.login-label{display:block;font-size:10px;color:#5a7aaa;text-transform:uppercase;letter-spacing:.2em;font-weight:700;margin-bottom:10px}
-.login-input-wrap{display:flex;align-items:center;background:rgba(0,0,0,0.4);border:1px solid rgba(0,240,255,0.2);border-radius:14px;transition:all .3s}
-.login-input-wrap:focus-within{border-color:#00f0ff;box-shadow:0 0 20px rgba(0,240,255,0.15);background:rgba(0,0,0,0.6)}
-.login-lock-icon{padding-left:15px;font-size:18px;opacity:.7}
-.login-input{flex:1;background:none;border:none;outline:none;color:#fff;font-family:'JetBrains Mono',monospace;font-size:18px;padding:15px;letter-spacing:.2em}
-.login-input::placeholder{color:rgba(255,255,255,0.15);letter-spacing:.1em}
+.login-field {margin-bottom: 18px}
+.login-label {display: block; font-size: 10px; color: #5a7aaa; text-transform: uppercase; letter-spacing: .18em; font-weight: 700; margin-bottom: 8px}
+.login-input-wrap {display: flex; align-items: center; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(0, 240, 255, 0.18); border-radius: 14px; transition: all .3s ease; position: relative}
+.login-input-wrap:focus-within {border-color: #00f0ff; box-shadow: 0 0 20px rgba(0, 240, 255, 0.12); background: rgba(0, 0, 0, 0.55)}
+.login-lock-icon {padding-left: 15px; font-size: 16px; opacity: .65}
+.login-input {flex: 1; background: none; border: none; outline: none; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 17px; padding: 14px; letter-spacing: .2em}
+.login-input::placeholder {color: rgba(255, 255, 255, 0.12); letter-spacing: .1em}
 
-.login-btn{width:100%;margin-top:10px;padding:16px;background:linear-gradient(135deg,#00f0ff,#00e676);
-  border:none;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;transition:all .3s}
-.login-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,240,255,0.3);filter:brightness(1.1)}
-.login-btn-text{color:#060912;font-weight:800;letter-spacing:0.1em;font-size:14px}
-.login-btn-arrow{color:#060912;font-size:20px}
+.login-eye {background: none; border: none; outline: none; padding-right: 15px; font-size: 18px; cursor: pointer; opacity: 0.5; transition: opacity 0.2s}
+.login-eye:hover {opacity: 0.9}
 
-.login-error{text-align:center;font-size:12px;font-weight:600;margin-top:15px;height:20px;color:#ff5252;opacity:0}
-.login-error.show{opacity:1}
-.login-error.ok{color:#00e676}
+.login-btn {width: 100%; margin-top: 10px; padding: 15px;
+  background: linear-gradient(-45deg, #00f0ff, #00e676, #7c4dff, #00f0ff);
+  background-size: 300% 300%;
+  animation: gradientSweep 6s ease infinite;
+  border: none; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px;
+  transition: all .3s cubic-bezier(0.4, 0, 0.2, 1)}
+.login-btn:hover {transform: translateY(-2px) scale(1.005); box-shadow: 0 10px 30px rgba(0, 240, 255, 0.35), 0 0 15px rgba(0, 230, 118, 0.25); filter: brightness(1.05)}
+.login-btn-text {color: #060912; font-weight: 800; letter-spacing: 0.08em; font-size: 13.5px}
+.login-btn-arrow {color: #060912; font-size: 18px; transition: transform 0.2s}
+.login-btn:hover .login-btn-arrow {transform: translateX(4px)}
+
+.login-error {text-align: center; font-size: 12px; font-weight: 600; margin-top: 12px; height: 18px; color: #ff5252; opacity: 0; transition: opacity 0.3s}
+.login-error.show {opacity: 1}
+.login-error.ok {color: #00e676}
 
 /* Responsive */
 @media(max-width:900px){
-  .login-card{flex-direction:column;width:95vw;min-height:auto}
-  .login-left{padding:30px;border-right:none;border-bottom:1px solid rgba(255,255,255,0.05)}
-  .login-right{padding:30px}
-  .login-title{font-size:24px}
+  .login-card {flex-direction: column; width: 95vw; min-height: auto}
+  .login-left {padding: 30px; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.06)}
+  .login-right {padding: 30px}
+  .login-title {font-size: 24px}
+  .tech-hud-ring, .tech-hud-ring2 {display: none}
 }
-
 
 ```
 
@@ -3822,13 +4168,28 @@ function initAnalyticsCharts(){
         <div class="login-card" id="loginCard">
           <!-- Left side: Credits -->
           <div class="login-left">
+            <div class="tech-hud-ring"></div>
+            <div class="tech-hud-ring2"></div>
             <div class="login-credits-wrap">
-              <img src="شعار الجامعة.jpg" class="university-logo" alt="Al-Maaqal University" style="animation: loginFloat 3s ease-in-out infinite; box-shadow: 0 0 30px var(--accent-glow); border: 2px solid rgba(0,240,255,0.3);">
-              <div class="credits-title">Academic Project</div>
+              <img src="شعار الجامعة.jpg" class="university-logo" alt="Al-Maaqal University">
+              <div class="credits-title">Academic Graduation Project</div>
 
               <div class="credits-text">
-                This project was developed and modeled to simulate the Hammar station by Petroleum Engineering students at Al-Maaqal University, under the direct supervision of:
-                <strong>"Dr. Eng. Saher Adel & Dr. Mahmoud Badawy"</strong>
+                This engineering system was designed and modeled to simulate the Hammar GOSP Station by Petroleum Engineering department at Al-Maaqal University.
+              </div>
+              
+              <div class="developer-credit-card">
+                <div class="cyber-scanline"></div>
+                <div class="dev-badge-glow"></div>
+                <div class="dev-subtitle">SYSTEM CREATOR & DEVELOPER</div>
+                <div class="dev-name">sjjad k. Hano</div>
+                <div class="dev-arabic">تم التطوير والإنشاء من قبل الطالب سجاد ك. هانو</div>
+                <div class="dev-dept">Petroleum Engineering Department</div>
+              </div>
+
+              <div class="supervision-card">
+                <div class="sup-title">UNDER THE DIRECT SUPERVISION OF</div>
+                <div class="sup-names">Dr. Eng. Saher Adel & Dr. Mahmoud Badawy</div>
               </div>
             </div>
           </div>
@@ -3944,6 +4305,40 @@ function initAnalyticsCharts(){
 
     btn.onclick = doLogin;
     pass.onkeydown = function(e){ if(e.key === "Enter") doLogin(); };
+
+    // 3D Parallax Mouse Move effect on login card
+    var bg = document.querySelector('.login-bg');
+    if (bg && card) {
+      bg.addEventListener('mousemove', function(e) {
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        var mouseX = e.clientX - w / 2;
+        var mouseY = e.clientY - h / 2;
+        
+        // Calculate rotation angles (max 6 degrees)
+        var rotateY = (mouseX / (w / 2)) * 6;
+        var rotateX = -(mouseY / (h / 2)) * 6;
+        
+        card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+        
+        var rings = document.querySelector('.login-rings');
+        if (rings) {
+          rings.style.transform = 'translate(' + (mouseX * -0.025) + 'px, ' + (mouseY * -0.025) + 'px)';
+        }
+        var pWrap = document.getElementById('loginParticles');
+        if (pWrap) {
+          pWrap.style.transform = 'translate(' + (mouseX * 0.035) + 'px, ' + (mouseY * 0.035) + 'px)';
+        }
+      });
+
+      bg.addEventListener('mouseleave', function() {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        var rings = document.querySelector('.login-rings');
+        if (rings) rings.style.transform = 'translate(0, 0)';
+        var pWrap = document.getElementById('loginParticles');
+        if (pWrap) pWrap.style.transform = 'translate(0, 0)';
+      });
+    }
 
     if(sessionStorage.getItem('hammar_auth') === 'true'){
       loginScreen.remove();
